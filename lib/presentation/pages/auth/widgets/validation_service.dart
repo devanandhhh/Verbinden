@@ -65,4 +65,14 @@ class ValidationService {
     }
     return null;
   }
+
+static String? validateCaption(String caption) {
+    if (caption.isEmpty ) {
+      return 'caption is Empty';
+    }else if(caption.length<=1){
+      return 'add a good caption';
+    }
+    return null;
+  }
+
 }

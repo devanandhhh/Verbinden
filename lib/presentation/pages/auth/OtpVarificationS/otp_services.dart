@@ -9,15 +9,9 @@ import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 class OtpValidationPage extends StatelessWidget {
-  OtpValidationPage({super.key, required this.token,required this.trueorflase});
+  OtpValidationPage(
+      {super.key, required this.token, required this.trueorflase});
 
-  // final TextEditingController otp1Controller = TextEditingController();
-
-  // final TextEditingController otp2Controller = TextEditingController();
-
-  // final TextEditingController otp3Controller = TextEditingController();
-
-  // final TextEditingController otp4Controller = TextEditingController();
   //1
   final otpController = TextEditingController();
   final String token;
@@ -40,24 +34,13 @@ class OtpValidationPage extends StatelessWidget {
               style: googleFabz,
             ),
             ksizedbox30,
-      
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     buildOtpField(otp1Controller, true, context),
-            //     buildOtpField(otp2Controller, false, context),
-            //     buildOtpField(otp3Controller, false, context),
-            //     buildOtpField(otp4Controller, false, context),
-            //   ],
-            //   //   );
-            //   // },
-            // ),
+
             //2
             SizedBox(
-              child: Pinput(
-                length: 4,
-                controller: otpController,)
-              ),
+                child: Pinput(
+              length: 4,
+              controller: otpController,
+            )),
             const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -72,17 +55,10 @@ class OtpValidationPage extends StatelessWidget {
                   builder: (context, state) {
                     return GestureDetector(
                       onTap: () {
-                        // otp1Controller.clear();
-                        // otp2Controller.clear();
-                        // otp3Controller.clear();
-                        // otp4Controller.clear();
-
-                        //3 
+                        //3
                         otpController.clear();
-      
-                        context
-                            .read<OtpValidationBloc>()
-                            .add(OtpResentEvent());
+
+                        context.read<OtpValidationBloc>().add(OtpResentEvent());
                       },
                       child: authButtonS('Resend OTP'),
                     );
@@ -91,34 +67,32 @@ class OtpValidationPage extends StatelessWidget {
                 BlocConsumer<OtpValidationBloc, OtpValidationState>(
                   listener: (context, state) async {
                     if (state is OtpSuccessState) {
-                      
-                      if(trueorflase==true){
+                      if (trueorflase == true) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          kSnakbar(text: 'Verified', col: ksnackbarGreen));
-                          knavigatorPush(context, CreateNewPasswordScreen(otp: state.otp,token: token,));
-                      }else{
+                            kSnakbar(text: 'Verified', col: ksnackbarGreen));
+                        knavigatorPush(
+                            context,
+                            CreateNewPasswordScreen(
+                              otp: state.otp,
+                              token: token,
+                            ));
+                      } else {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          kSnakbar(text: 'Verified', col: ksnackbarGreen));
-                      Navigator.pop(context);
-                      Navigator.pop(context);
+                            kSnakbar(text: 'Verified', col: ksnackbarGreen));
+                        Navigator.pop(context);
+                        Navigator.pop(context);
                       }
-                      
                     } else if (state is OtpFaliureState) {
-                      ScaffoldMessenger.of(context).showSnackBar(kSnakbar(
-                          text: 'Invalid OTP....', col: ksnackbarRed));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          kSnakbar(text: 'Invalid OTP....', col: ksnackbarRed));
                     }
                   },
                   builder: (context, state) {
                     return GestureDetector(
                         onTap: () async {
-
-                          // final otp = otp1Controller.text +
-                          //     otp2Controller.text +
-                          //     otp3Controller.text +
-                          //     otp4Controller.text;
-      
                           context.read<OtpValidationBloc>().add(
-                              OtpSubittedEvent(otp: otpController.text, tempToken: token));
+                              OtpSubittedEvent(
+                                  otp: otpController.text, tempToken: token));
                         },
                         child: authButtonS('Verify'));
                   },
@@ -132,28 +106,28 @@ class OtpValidationPage extends StatelessWidget {
     );
   }
 
-  Widget buildOtpField(
-      TextEditingController controller, bool autoFocus, BuildContext ctx) {
-    return SizedBox(
-      width: 50,
-      child: TextField(
-        controller: controller,
-        autofocus: autoFocus,
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        decoration: InputDecoration(
-          counterText: '',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        ),
-        onChanged: (value) {
-          if (value.length == 1) {
-            FocusScope.of(ctx).nextFocus();
-          }
-        },
-      ),
-    );
-  }
+  // Widget buildOtpField(
+  //     TextEditingController controller, bool autoFocus, BuildContext ctx) {
+  //   return SizedBox(
+  //     width: 50,
+  //     child: TextField(
+  //       controller: controller,
+  //       autofocus: autoFocus,
+  //       textAlign: TextAlign.center,
+  //       keyboardType: TextInputType.number,
+  //       maxLength: 1,
+  //       decoration: InputDecoration(
+  //         counterText: '',
+  //         border: OutlineInputBorder(
+  //           borderRadius: BorderRadius.circular(12),
+  //         ),
+  //       ),
+  //       onChanged: (value) {
+  //         if (value.length == 1) {
+  //           FocusScope.of(ctx).nextFocus();
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 }

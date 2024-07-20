@@ -21,13 +21,5 @@ class UserEditModel {
     );
   }
 
-  // Method to convert a User instance to a JSON map
-  // Map<String, dynamic> toJson() {
-  //   return {
-  //     'name': name,
-  //     'username': username,
-  //     'bio': bio,
 
-  //   };
-  // }
 }

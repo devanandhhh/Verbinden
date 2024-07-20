@@ -9,6 +9,9 @@ import 'package:verbinden/presentation/bloc/edit_profile/edit_profile_bloc.dart'
 import 'package:verbinden/presentation/pages/following&followers/follow_Screen.dart';
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
 
+import '../../../../data/models/getPost/get_post.dart';
+import '../../../bloc/userPostFetch/user_post_fech_bloc.dart';
+import '../../setting/setting_screen.dart';
 import '../../splash/splash_screen.dart';
 import '../../viewProfile/our_profile/viewProfile.dart';
 
@@ -81,7 +84,7 @@ class ProfileSection1 extends StatelessWidget {
                                 knavigatorPush(context,
                                     ConnectionsScreen(name: nameofuser));
                               },
-                              child: Row( 
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   CircleAvatar(
@@ -183,7 +186,7 @@ class ProfileSection1 extends StatelessWidget {
                                       context
                                           .read<EditProfileBloc>()
                                           .add(EditProfileSubmitted(model));
-                                      
+
                                       Navigator.pop(context);
                                     },
                                     child: const Text('Save'))
@@ -193,12 +196,10 @@ class ProfileSection1 extends StatelessWidget {
                           });
                     },
                     child: profilebutton('Edit Profile')),
-
                 GestureDetector(
                     onTap: () {
                       print('ontap worked');
 
-                     
                       knavigatorPush(
                           context,
                           ViewProfile(
@@ -206,7 +207,6 @@ class ProfileSection1 extends StatelessWidget {
                           ));
                     },
                     child: profilebutton('View Profile'))
-          
               ],
             ),
           ],
@@ -222,6 +222,140 @@ underlineDecoration() {
 }
 
 TextStyle gPoppines33 = GoogleFonts.poppins(
-    textStyle: TextStyle(
+    textStyle: const TextStyle(
   fontSize: 33,
 ));
+
+class PostDialog extends StatelessWidget {
+  final Post post;
+  final Function onDelete;
+  const PostDialog({super.key, required this.post, required this.onDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.network(post.mediaUrl[0]),
+          ksizedbox10,
+          Text(post.caption ?? ''),
+          ksizedbox10,
+          ElevatedButton(
+              onPressed: () {
+                onDelete();
+                Navigator.pop(context);
+              },
+              child: const Text('Delete'))
+        ],
+      ),
+    );
+  }
+}
+
+AppBar profileAppbar(BuildContext context) {
+  return AppBar(automaticallyImplyLeading: false, actions: [
+    IconButton(
+        onPressed: () {
+          knavigatorPush(context, const SettingScreen());
+        },
+        icon: const Icon(
+          Icons.menu,
+          size: 30,
+        )),
+  ]);
+}
+
+SizedBox sizedboxWithCircleprogressIndicator() {
+  return SizedBox(
+    height: 225,
+    child: Center(
+      child: CircularProgressIndicator(
+        color: kmain200,
+      ),
+    ),
+  );
+}
+
+Center ksizedbox225Text({required String title}) {
+  return Center(
+    child: SizedBox(
+      height: 225,
+      child: Center(
+        child: Text(title),
+      ),
+    ),
+  );
+}
+
+GridView userPostGridView(ProfilePostsLoadedState state) {
+  return GridView.builder(
+    shrinkWrap: true,
+    physics: const NeverScrollableScrollPhysics(),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 3,
+      crossAxisSpacing: 4.0,
+      mainAxisSpacing: 4.0,
+    ),
+    itemBuilder: (context, index) {
+      final post = state.posts[index];
+      return GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return PostDialog(
+                      post: post,
+                      onDelete: () {
+                        context
+                            .read<UserPostFechBloc>()
+                            .add(DeletePostEvent(postId: post.postId));
+                      });
+                });
+          },
+          child: Container(
+              decoration: BoxDecoration(
+                color: ksnackbarGreen,
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: ClipRRect(
+                  child: Image.network(
+                post.mediaUrl[0],
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const Center(
+                  child: Text('😢'),
+                ),
+                loadingBuilder: (context, child, loadingProgress) {
+                  final totalBytes = loadingProgress?.expectedTotalBytes;
+                  final bytesLoaded = loadingProgress?.cumulativeBytesLoaded;
+                  if (totalBytes != null && bytesLoaded != null) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white70,
+                        value: bytesLoaded / totalBytes,
+                        color: kmain200,
+                        strokeWidth: 5.0,
+                      ),
+                    );
+                  } else {
+                    return child;
+                  }
+                },
+              ))));
+      //  Container(
+      //   decoration: BoxDecoration(
+      //     color: ksnackbarGreen,
+      //     borderRadius: BorderRadius.circular(4),
+      //     image: DecorationImage(
+      //       image: NetworkImage(post.mediaUrl[0]),
+      //       fit: BoxFit.cover,
+      //     ),
+      //   ),
+      //   height: 50,
+      //   width: 50,
+      // ),
+      // );
+    },
+    itemCount: state.posts.length,
+  );
+}

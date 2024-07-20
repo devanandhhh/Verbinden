@@ -5,10 +5,13 @@ import 'package:verbinden/presentation/bloc/edit_profile/edit_profile_bloc.dart'
 import 'package:verbinden/presentation/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:verbinden/presentation/bloc/profile/profile_bloc.dart';
 import 'package:verbinden/presentation/bloc/user_login/user_login_bloc.dart';
+import 'package:verbinden/presentation/cubit/passwordValidation/password_visibility_cubit.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 import 'presentation/bloc/bottomNav/bottom_nav_cubit.dart';
 import 'presentation/bloc/otp_validation/otp_validation_bloc.dart';
+import 'presentation/bloc/upload_post/upload_post_bloc.dart';
+import 'presentation/bloc/userPostFetch/user_post_fech_bloc.dart';
 import 'presentation/bloc/user_signup/signup_bloc.dart';
 
 void main() async {
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return MultiBlocProvider(
       providers: [
         BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
@@ -29,6 +32,9 @@ class MyApp extends StatelessWidget {
         BlocProvider<BottomNavCubit>(create: (context) => BottomNavCubit(),),
         BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
         BlocProvider(create: (context)=>EditProfileBloc()),
+        BlocProvider(create: (context)=>PasswordVisibilityCubit()),
+        BlocProvider(create: (context)=>UploadPostBloc()),
+        BlocProvider(create: (context)=>UserPostFechBloc())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
