@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:verbinden/presentation/bloc/user_signup/signup_bloc.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/pages/auth/OtpVarificationS/otp_services.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/validation_service.dart';
@@ -27,8 +27,8 @@ class SignUpPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ksizedbox30,
-            ksizedbox30,
+            h30,
+            h30,
             const SizedBox(
               height: 200,
               width: double.infinity,
@@ -53,7 +53,7 @@ class SignUpPage extends StatelessWidget {
                             hintText: 'Full Name'),
                         validator: (value) =>
                             ValidationService.validateName(value!)),
-                    ksizedbox20,
+                    h20,
                     TextFormField(
                       controller: userNameController,
                       decoration: InputDecoration(
@@ -63,7 +63,7 @@ class SignUpPage extends StatelessWidget {
                       validator: (value) =>
                           ValidationService.validateUsername(value!),
                     ),
-                    ksizedbox20,
+                    h20,
                     TextFormField(
                       controller: emailController,
                       decoration: InputDecoration(
@@ -73,7 +73,7 @@ class SignUpPage extends StatelessWidget {
                       validator: (value) =>
                           ValidationService.validateEmail(value!),
                     ),
-                    ksizedbox20,
+                    h20,
                     TextFormField(
                       controller: passwordController,
                       decoration: InputDecoration(
@@ -83,7 +83,7 @@ class SignUpPage extends StatelessWidget {
                       validator: (value) =>
                           ValidationService.validatePassword(value!),
                     ),
-                    ksizedbox20,
+                    h20,
                     TextFormField(
                       controller: cPasswordController,
                       decoration: InputDecoration(
@@ -94,7 +94,7 @@ class SignUpPage extends StatelessWidget {
                           ValidationService.validateConfirmPassword(
                               passwordController.text, value!),
                     ),
-                    ksizedbox30,
+                    h30,
                     BlocConsumer<SignupBloc, SignupState>(
                       listener: (context, state) {
                         if (state is SignupSuccessState) {
@@ -136,7 +136,7 @@ class SignUpPage extends StatelessWidget {
                             child: authButton('Sign Up'));
                       },
                     ),
-                    ksizedbox20,
+                    h20,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

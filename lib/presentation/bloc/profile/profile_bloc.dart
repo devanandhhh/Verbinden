@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:verbinden/data/api/profile_repo/profile_service.dart';
+import 'package:verbinden/data/api/profile_repo/section_1/profile_service.dart';
 import 'package:verbinden/data/models/profile/profile_model.dart';
 
 

@@ -14,10 +14,13 @@ class SplashScreen extends StatelessWidget {
       final sharedPrefz = await SharedPreference.getboolValue();
       if (sharedPrefz != true) {
         // ignore: use_build_context_synchronously
-        knavigatorPush(context, LoginPage());
+        //knavigatorPush(context, LoginPage());
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>LoginPage()));
       } else {
         // ignore: use_build_context_synchronously
-        knavigatorPush(context,const  BottomNavigationScreen());
+        //knavigatorPush(context,const  BottomNavigationScreen());
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const BottomNavigationScreen()));
+
       }
     });
     return Scaffold(
@@ -37,6 +40,8 @@ class SplashScreen extends StatelessWidget {
 }
 
 Future<void> knavigatorPush(BuildContext context, Widget screen) {
-  return Navigator.push(context, MaterialPageRoute(builder: (ctx) => screen));
+  return 
+  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>screen));  
+   Navigator.push(context, MaterialPageRoute(builder: (ctx) => screen));
 }
  

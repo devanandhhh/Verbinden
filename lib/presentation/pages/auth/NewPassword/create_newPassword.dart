@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/bloc/otp_validation/otp_validation_bloc.dart';
 import 'package:verbinden/presentation/pages/auth/LoginPage/login_page.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
@@ -36,7 +36,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                     hintText: 'New Password'),
                 validator: (value) => ValidationService.validatePassword(value!),
               ),
-              ksizedbox10,
+              h10,
               TextFormField(
                 controller: confirmPasswordController,
                 decoration: InputDecoration(
@@ -46,7 +46,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                 validator: (value) => ValidationService.validateConfirmPassword(
                     value!, passwordController.text),
               ),
-              ksizedbox30,
+              h30,
               BlocConsumer<OtpValidationBloc, OtpValidationState>(
                 listener: (context, state) {
                   if (state is OtpResetSuccesstate) {

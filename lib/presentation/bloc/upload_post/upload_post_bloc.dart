@@ -23,10 +23,11 @@ class UploadPostBloc extends Bloc<UploadPostEvent, UploadPostState> {
           await AddPostService().addPost(event.imagepath.path, event.caption);
 
       if (responseCode == 200) {
+        
         emit(UploadSucessState());
        // emit(UploadPostInitial());
       } else {
-        emit(UploadFaliureState('status code is not 200'));
+        emit(UploadFaliureState('status code is not 200'));  
       }
 
       //emit(UploadFaliureState('response null'));

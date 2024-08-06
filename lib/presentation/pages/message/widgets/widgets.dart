@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/colors_constant.dart';
-import '../../../../core/widget_constant.dart';
+import '../../../../core/constant.dart';
+import '../../../../core/style.dart';
 
 AppBar kAppbarDecorate(String title,[bool notHomeScreen =false,bool backbutton =false]) {
   return AppBar(
@@ -32,11 +33,12 @@ class MessageBar extends StatelessWidget {
           width: double.infinity,
           child: Row(
             children: [
-              kWsizedbox20,
+              w20,
               Container(
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
+                  image:const DecorationImage(image:NetworkImage(unKnown)),
                     color: ksnackbarRed,
                     borderRadius: BorderRadius.circular(10)),
               ),

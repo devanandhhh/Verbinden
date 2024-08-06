@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/bloc/user_login/user_login_bloc.dart';
 import 'package:verbinden/presentation/cubit/passwordValidation/password_visibility_cubit.dart';
 import 'package:verbinden/presentation/pages/BottomNavigation/bottom_navigation.dart';
@@ -24,7 +24,7 @@ class LoginPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ksizedbox90,
+            h90,
             const SizedBox(
               height: 360,
               width: double.infinity,
@@ -56,7 +56,7 @@ class LoginPage extends StatelessWidget {
                       validator: (value) =>
                           ValidationService.validateEmail(emailController.text),
                     ),
-                    ksizedbox20,
+                    h20,
                 
                        BlocBuilder<PasswordVisibilityCubit,
                           PasswordVisibilityState>(builder: (context, state) {
@@ -87,11 +87,11 @@ class LoginPage extends StatelessWidget {
                                     passwordController.text),
                           );
                         } else {
-                          return ksizedbox10;
+                          return h10;
                         }
                       }),
                  
-                    ksizedbox10,
+                    h10,
                     BlocConsumer<UserLoginBloc, UserLoginState>(
                       listener: (context, state) {
                         if (state is UserForgotPasswordState) {
@@ -113,7 +113,7 @@ class LoginPage extends StatelessWidget {
                             child: authButtonText('Forgot Password?'));
                       },
                     ),
-                    ksizedbox10,
+                    h10,
                     BlocConsumer<UserLoginBloc, UserLoginState>(
                       listener: (context, state) {
                         if (state is UserLoginSuccessState) {
@@ -150,7 +150,7 @@ class LoginPage extends StatelessWidget {
                             child: authButton('Login'));
                       },
                     ),
-                    ksizedbox10,
+                    h10,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

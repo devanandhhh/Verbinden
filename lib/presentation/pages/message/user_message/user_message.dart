@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:verbinden/core/colors_constant.dart';
-import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
-import 'package:verbinden/presentation/pages/viewProfile/others_Profile/othersProfile.dart';
 
 class UserMessage extends StatelessWidget {
   const UserMessage({super.key, required this.nameofmessager});
@@ -19,7 +17,7 @@ class UserMessage extends StatelessWidget {
             const SizedBox(width: 10),
             GestureDetector(
               onTap: () {
-                knavigatorPush(context, const OthersProfilePage());
+               // knavigatorPush(context, const OthersProfilePage());
               },
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

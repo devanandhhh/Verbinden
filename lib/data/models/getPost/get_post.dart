@@ -1,7 +1,7 @@
 class Post {
   final int userId;
   final String userName;
-  final String userProfileImgURL;
+  final String? userProfileImgURL;
   final int postId;
   final String? caption;
   final String postAge;
@@ -12,7 +12,7 @@ class Post {
   Post({
     required this.userId,
     required this.userName,
-    required this.userProfileImgURL,
+     this.userProfileImgURL,
     required this.postId,
     this.caption,
     required this.postAge,

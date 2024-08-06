@@ -1,5 +1,6 @@
 class EndPoints{
-  static String baseUrl ='https://ciao.ashkar.tech';
+  // static String baseUrl ='https://ciao.ashkar.tech';
+  static String baseUrl ='https://k8s.ciao.ashkar.tech';
   static String signup ='/signup';
   static String login='/login';
   static String forgotPassword ='/forgotpassword';
@@ -9,5 +10,12 @@ class EndPoints{
   static String profile ='/profile';
   static String editprofile='/edit';
   static String post='/post/';
-  //static String getUserPost="/post?limit=7&offset=0";
+  static String setProfileImage ='/setprofileimage';
+  static String exploreSearchUser ='/explore/search/user/';
+  static String explore ='/explore';
+  static String relation ='/relation';
+  static String follow ='/follow';
+  static String unfollow ='/unfollow';
+  static String followers='/followers';
+  static String following='/following';
 } 

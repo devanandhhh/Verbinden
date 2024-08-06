@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 
 import '../../../../core/colors_constant.dart';
 

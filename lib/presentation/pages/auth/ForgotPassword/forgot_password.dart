@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verbinden/core/colors_constant.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/bloc/forgot_password/forgot_password_bloc.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/validation_service.dart';
@@ -37,7 +37,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 validator: (value) =>
                     ValidationService.validateEmail(emailcontroller.text),
               ),
-              ksizedbox30,
+              h30,
               BlocConsumer<ForgotPasswordBloc, ForgotPasswordState>(
                 listener: (context, state) {
                   if (state is ForgotPasswordSuccessState) {

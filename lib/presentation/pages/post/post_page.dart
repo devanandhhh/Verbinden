@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:verbinden/core/colors_constant.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 
@@ -20,7 +20,7 @@ class PostScreen extends StatelessWidget {
     if (pickImage != null) {
       context.read<UploadPostBloc>().add(ImagePickEvent(File(pickImage.path)));
     }
-  }
+  } 
 
    void validateAndSubmit(BuildContext context, File? image, String caption) {
     if (image == null) {
@@ -52,7 +52,7 @@ class PostScreen extends StatelessWidget {
               builder: (context, state) {
                 File? image;
                 if(state is ImagePickState){
-                  image=state.image;
+                  image=state.image; 
                 }
                 return Container(
                   height: 300,
@@ -78,7 +78,7 @@ class PostScreen extends StatelessWidget {
                 );
               },
             ),
-            ksizedbox30,
+            h30,
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
               child: TextFormField(
@@ -92,10 +92,11 @@ class PostScreen extends StatelessWidget {
                     ValidationService.validateCaption(captionController.text),
               ),
             ),
-            ksizedbox20,
+            h20,
             BlocConsumer<UploadPostBloc, UploadPostState>(
               listener: (context, state) {
                 if (state is UploadSucessState) {
+                   captionController.clear();
                   ScaffoldMessenger.of(context).showSnackBar(
                       kSnakbar(text: 'post Added', col: ksnackbarGreen));
                       

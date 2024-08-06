@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:verbinden/core/colors_constant.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/data/models/profile/profile_model.dart';
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
+
+import '../../../../../core/style.dart';
 
 class ViewProfile extends StatelessWidget {
   const ViewProfile({
@@ -33,15 +36,17 @@ class ViewProfile extends StatelessWidget {
                           Icons.person,
                           size: 39,
                         )
-                      : ClipRRect(
-                        borderRadius:BorderRadius.circular(10),
-                        child: Image.network(
-                            model.afterExecution.userProfileImageURL,
-                            fit: BoxFit.cover,
-                          ),
+                      : InstaImageViewer (
+                        child: ClipRRect(
+                          borderRadius:BorderRadius.circular(10),
+                          child: Image.network(
+                              model.afterExecution.userProfileImageURL,
+                              fit: BoxFit.cover,
+                            ),
+                        ),
                       ),
                 ),
-                kWsizedbox10,
+                w10,
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -53,7 +58,7 @@ class ViewProfile extends StatelessWidget {
                       model.afterExecution.name,
                       style: gfontsize20,
                     ),
-                    ksizedbox20,
+                    h20,
                     Text(
                       'UserName',
                       style: gFaBeeZe(15, kgreyColor),
@@ -66,7 +71,7 @@ class ViewProfile extends StatelessWidget {
                 )
               ],
             ),
-            ksizedbox20,
+            h20,
             Text('Bio', style: gFaBeeZe(15, kgreyColor)),
             Text(
               model.afterExecution.bio == ""
@@ -74,21 +79,21 @@ class ViewProfile extends StatelessWidget {
                   : model.afterExecution.bio,
               style: gfontsize20,
             ),
-            ksizedbox20,
+            h20,
             Text('Followers Count', style: gFaBeeZe(15, kgreyColor)),
             Text(
                 model.afterExecution.followersCount == 0
                     ? 'No Followers'
                     : model.afterExecution.followersCount.toString(),
                 style: gfontsize20),
-            ksizedbox20,
+            h20,
             Text('Following Count ', style: gFaBeeZe(15, kgreyColor)),
             Text(
                 model.afterExecution.followingCount == 0
                     ? 'No Followings'
                     : model.afterExecution.followingCount.toString(),
                 style: gfontsize20),
-            ksizedbox20,
+            h20,
             Text('Post Count', style: gFaBeeZe(15, kgreyColor)),
             Text(
               model.afterExecution.postsCount == 0

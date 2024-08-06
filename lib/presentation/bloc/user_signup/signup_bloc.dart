@@ -31,6 +31,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             jsonDecode((response.body))['after execution']['ErrorMessage'];
         emit(SignupFailureState(error: errormsg)); 
       }else{
+        print('hello error');
          String errormsg =
             jsonDecode((response!.body))['message'];
         emit(SignupFailureState(error: errormsg)); 

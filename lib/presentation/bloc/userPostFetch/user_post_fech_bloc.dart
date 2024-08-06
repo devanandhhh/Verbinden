@@ -3,8 +3,9 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:verbinden/data/models/edit_post/edit_post.dart';
 
-import '../../../data/api/profile_repo/profile_service.dart';
+import '../../../data/api/profile_repo/section_2/profile_section_service.dart';
 import '../../../data/models/getPost/get_post.dart';
 
 part 'user_post_fech_event.dart';
@@ -14,9 +15,11 @@ class UserPostFechBloc extends Bloc<UserPostFechEvent, UserPostFechState> {
   UserPostFechBloc() : super(UserPostFechInitial()) {
     on<ProfileFetchPostEvent>(onProfilePostFeched);
     on<DeletePostEvent>(onDeletePost);
+    //adding edit event
+    on<EditPostEvent>(onEditPost);
   }
 
-   ProfileService service = ProfileService();
+   ProfilePostSectionService service = ProfilePostSectionService();
   FutureOr<void> onProfilePostFeched(ProfileFetchPostEvent event, Emitter<UserPostFechState> emit)async {
   emit(ProfilePostLoadingState());
   try { 
@@ -42,5 +45,19 @@ class UserPostFechBloc extends Bloc<UserPostFechEvent, UserPostFechState> {
       log(e.toString());
       emit(ProfilePostsFailureState(e.toString()));
     }
+  }
+
+  FutureOr<void> onEditPost(EditPostEvent event, Emitter<UserPostFechState> emit)async {
+    emit(ProfilePostLoadingState());
+    try{
+     log('edit post successfully id ${event.model.postId}');
+    await service.editUserPost(EditPostModel(caption: event.model.caption, postId: event.model.postId));
+    List<Post>posts=await service.getUserPosts();
+    emit(ProfilePostsLoadedState(posts));
+    }catch(e){
+       log(e.toString());
+      emit(ProfilePostsFailureState(e.toString()));
+    }
+    
   }
 }

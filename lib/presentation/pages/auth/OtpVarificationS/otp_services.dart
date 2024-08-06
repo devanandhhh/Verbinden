@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pinput/pinput.dart';
 import 'package:verbinden/core/colors_constant.dart';
-import 'package:verbinden/core/widget_constant.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/bloc/otp_validation/otp_validation_bloc.dart';
 import 'package:verbinden/presentation/pages/auth/NewPassword/create_newPassword.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
+
+import '../../../../core/style.dart';
 
 class OtpValidationPage extends StatelessWidget {
   OtpValidationPage(
@@ -33,7 +35,7 @@ class OtpValidationPage extends StatelessWidget {
               'We have sent a verification code to your email address',
               style: googleFabz,
             ),
-            ksizedbox30,
+            h30,
 
             //2
             SizedBox(

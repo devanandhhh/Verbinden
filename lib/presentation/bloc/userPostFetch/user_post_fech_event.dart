@@ -11,3 +11,9 @@ class DeletePostEvent extends UserPostFechEvent{
 
   DeletePostEvent({required this.postId});
 }
+class EditPostEvent extends UserPostFechEvent{
+  final EditPostModel model;
+
+  EditPostEvent({required this.model});
+  
+}

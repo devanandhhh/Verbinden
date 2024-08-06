@@ -37,6 +37,7 @@ class UserProfileData {
   int postsCount;
   int followersCount;
   int followingCount;
+  bool? followingStatus;
 
   UserProfileData({
     required this.userId,
@@ -48,6 +49,7 @@ class UserProfileData {
     required this.postsCount,
     required this.followersCount,
     required this.followingCount,
+     this.followingStatus
   });
 
   factory UserProfileData.fromJson(Map<String, dynamic> json) {
@@ -61,6 +63,7 @@ class UserProfileData {
       postsCount: json['PostsCount'],
       followersCount: json['FollowersCount'],
       followingCount: json['FollowingCount'],
+      followingStatus:json['Following_status']
     );
   }
 
