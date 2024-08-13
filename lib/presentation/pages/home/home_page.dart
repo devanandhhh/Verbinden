@@ -5,11 +5,13 @@ import 'package:verbinden/core/constant.dart';
 
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
+import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
 
 import '../../bloc/home_bloc/home_bloc.dart';
 import '../../bloc/profile/profile_bloc.dart';
 import '../profile/widgets/methods.dart';
-import 'widgets/widgets.dart';
+import 'widgets/section_one.dart';
+import 'widgets/others_post_container.dart';
 
 // Screens for the different bottom navigation items
 
@@ -26,14 +28,20 @@ class HomePage extends StatelessWidget {
         children: [
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
-              if(state is ProfileLoadingState){
-                Center(child: LinearProgressIndicator(backgroundColor: kmain200,),);
-              }else if(state is ProfileLoadedState){
-                nameofuser=state.profileData.afterExecution.userName;
-                imageOfUser=state.profileData.afterExecution.userProfileImageURL;
+              if (state is ProfileLoadingState) {
+                Center(
+                  child: LinearProgressIndicator(
+                    backgroundColor: kmain200,
+                  ),
+                );
+              } else if (state is ProfileLoadedState) {
+                nameofuser = state.profileData.afterExecution.userName;
+                imageOfUser =
+                    state.profileData.afterExecution.userProfileImageURL;
               }
               return SectionOne(
-                userName: nameofuser,userImage:imageOfUser ,
+                userName: nameofuser, 
+                userImage: imageOfUser,
               );
             },
           ),
@@ -44,42 +52,62 @@ class HomePage extends StatelessWidget {
                 return sizedboxWithCircleprogressIndicator();
               } else if (state is HomeLoadedState) {
                 return Expanded(
-                    child: ListView.builder(
-                  itemCount: state.othersPost.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final post = state.othersPost[index];
-                    return OthersPostContainer(
-                      username: post.userName,
-                      time: post.postAge,
-                      description: post.caption ?? 'No caption',
-                      postImage: post.mediaUrl[0],
-                      profileImage: post.userProfileImgUrl,
-                    );
-                  },
-                ));
+                  child: ListView.builder(
+                    itemCount: state.othersPost.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final post = state.othersPost[index];
+
+                      return OthersPostContainer(
+                        username: post.userName,
+                        time: post.postAge,
+                        description: post.caption ?? 'No caption',
+                        postImage: post.mediaUrl[0],
+                        profileImage: post.userProfileImgUrl,
+                        postId: post.postId,
+                        likeCount: post.likesCount,
+                        commentCount: post.commentsCount,
+                        userId: post.userId,
+                        likeStatus: post.likeStatus,
+                        isEnabledPop: true,
+                      );
+                    },
+                  ),
+                );
               } else if (state is HomeFaliureState) {
                 return Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      OthersPostContainer(
-                        username: 'kevin_babu',
-                        time: '2 days ago',
-                        description: 'description here ',
-                        postImage: imageDemo,
-                        profileImage: unKnown,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const OthersPostContainer(
+                      username: 'Unknown User',
+                      time: '2 days ago',
+                      description: 'description here ',
+                      postImage: unKnown,
+                      profileImage: unKnown,
+                      postId: 1,
+                      userId: 1,
+                      likeStatus: true,
+                      isEnabledPop: false,
+                    ),
+                    Center(
+                      child: Text(
+                        'No Post availabe ,Do Follow Your friends',
+                        style: gPoppines15,
                       ),
-                      const Text(
-                        'No Post Available',
-                      ),
-                    ]);
+                    ),
+                  ],
+                );
                 // return ksizedbox225Text(title: state.error);
               } else {
                 return OthersPostContainer(
+                  likeStatus: true,
+                  isEnabledPop: false,
+                  userId: 1,
                   username: 'kevin_babu',
                   time: '2 days ago',
                   description: 'description here ',
                   postImage: imageDemo,
                   profileImage: imageDemo,
+                  postId: 1,
                 );
               }
             },

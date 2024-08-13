@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:like_button/like_button.dart';
 import 'package:verbinden/data/models/edit_post/edit_post.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/comment_box.dart';
@@ -218,11 +219,13 @@ class MyPostViewer extends StatelessWidget {
                           color: ksnackbarRed,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            postImage,
-                            fit: BoxFit.cover,
+                        child: InstaImageViewer(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              postImage,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
@@ -230,7 +233,10 @@ class MyPostViewer extends StatelessWidget {
                       Row(
                         children: [
                           w10,
-                          LikeButton(size: 30,likeCount:int.tryParse(likeCount.toString()) ,),
+                          LikeButton(
+                            size: 30,
+                            likeCount: int.tryParse(likeCount.toString()),
+                          ),
                           // SizedBox(
                           //   height: 20,
                           //   width: 20,
@@ -242,18 +248,24 @@ class MyPostViewer extends StatelessWidget {
                           //   style: gPoppines15,
                           // ),
                           w10,
-                          
+
                           GestureDetector(
-                            onTap: (){
-                              showBottomSheet(backgroundColor: Colors.transparent,
-                                context: context, builder: (context){
-                                
-                                return DraggableScrollableSheet(
-                                  initialChildSize: 0.6,minChildSize: 0.2,maxChildSize: 0.6,
-                                  builder: (context, scrollController) {
-                                  return const CommentBox();
-                                },);
-                              });
+                            onTap: () {
+                              showBottomSheet(
+                                  backgroundColor: Colors.transparent,
+                                  context: context,
+                                  builder: (context) {
+                                    return DraggableScrollableSheet(
+                                      initialChildSize: 0.6,
+                                      minChildSize: 0.2,
+                                      maxChildSize: 0.6,
+                                      builder: (context, scrollController) {
+                                        return CommentBox(
+                                          postId: post.postId,
+                                        );
+                                      },
+                                    );
+                                  });
                             },
                             child: SizedBox(
                               height: 25,

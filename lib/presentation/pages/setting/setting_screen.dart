@@ -7,9 +7,12 @@ import 'package:verbinden/presentation/pages/following&followers/follow_Screen.d
 import 'package:verbinden/presentation/pages/auth/LoginPage/login_page.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
+import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
+import 'package:verbinden/presentation/pages/setting/screens/about_screen.dart';
+import 'package:verbinden/presentation/pages/setting/screens/help_screen.dart';
+import 'package:verbinden/presentation/pages/setting/screens/privacy_screen.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
-import '../../../core/style.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -31,18 +34,28 @@ class SettingScreen extends StatelessWidget {
               },
               child: textFontsize_20('Follower & Following')),
             h30,
-            textFontsize_20('Privacy'),  
+            GestureDetector(
+              onTap: (){
+                knavigatorPush(context,const PrivacyScreen() );
+              },
+               child: textFontsize_20('Privacy')),  
             h30,
-            textFontsize_20('Help'),
+            GestureDetector( onTap: (){
+              knavigatorPush(context, const HelpScreen());
+            }, child: textFontsize_20('Help')),
             h30,  
-            textFontsize_20('About'),
+            GestureDetector (
+              onTap: (){
+                knavigatorPush(context, const AboutScreen());
+              }, 
+              child: textFontsize_20('About')),
             h30,
             GestureDetector(
                 onTap: () {
                   showDialog(
                     context: context,   
                     builder: (BuildContext context) => AlertDialog(
-                      title:  Text('Do You Want to Logout',style:gFaBeeZe(22, kblackColor) ,),
+                      title:  Text('Do You Want to Logout',style:gPoppines15  ,),
                       actions: [
                         TextButton(
                             onPressed: () {
@@ -50,7 +63,7 @@ class SettingScreen extends StatelessWidget {
                             },
                             child: Text(
                               'No',
-                              style: googleFabz,
+                              style: gPoppines15,
                             )),
                         TextButton(
                             onPressed: () async {
@@ -69,7 +82,7 @@ class SettingScreen extends StatelessWidget {
                             },
                             child: Text(
                               'Yes',
-                              style: googleFabz,
+                              style: gPoppines15,
                             )),
                       ],
                     ),

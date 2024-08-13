@@ -23,7 +23,10 @@ class GetConnectionsBloc
 
     try {
       final List<UserRelation> followerList = await service.getFollowersList();
-      print(followerList);
+      print('followers list $followerList');
+      if(followerList.isEmpty){
+        emit(FollowerListFaliureState(error: 'No followers')); 
+      }
       if (followerList.isNotEmpty) {
         log('in followlist isnot Empty');
         emit(FollowerListLoadedState(followerList: followerList));
@@ -40,12 +43,14 @@ class GetConnectionsBloc
     emit(GetConnectionLoadingState());
     try {
       final List<UserRelation> followingList =
-          await service.getFolloweingList();
+          await service.getFollowingList();
       if (followingList.isNotEmpty) {
         emit(FollowingListLoadedState(followingList: followingList));
       } else {
         emit(FollowingListFaliureState(error: 'No Following Found'));
       }
-    } catch (e) {}
+    } catch (e) {
+       log('error is $e');
+    }
   }
 }

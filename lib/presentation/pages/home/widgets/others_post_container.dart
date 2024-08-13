@@ -1,65 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:insta_image_viewer/insta_image_viewer.dart';
 import 'package:like_button/like_button.dart';
-import 'package:verbinden/core/colors_constant.dart';
-import 'package:verbinden/data/models/allPost/all_post.dart';
+import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/presentation/bloc/bloc/like_unlike_bloc.dart';
+import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/others_Profile/othersProfile.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/comment_box.dart';
+import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
-import '../../../../core/constant.dart';
+import '../../../../core/colors_constant.dart';
 import '../../../../core/style.dart';
-import '../../message/widgets/widgets.dart';
-import '../../profile/widgets/widgets.dart';
 
-class OthersPostView extends StatelessWidget {
-  const OthersPostView({super.key, required this.post, required this.index});
-  final int index;
-  final OthersPost post;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Explore Post',
-          style: GoogleFonts.aBeeZee(
-            textStyle: TextStyle(fontSize: 24, color: kblackColor),
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          OthersPostListViewWidget(
-            post: post,
-            username: post.userName,
-            time: post.postAge,
-            description: post.caption ?? 'nothing',
-            postImage: post.mediaUrl[0],
-            profileImage: post.userProfileImgUrl,
-            likeCount: post.likesCount,
-            commentCount: post.commentsCount,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class OthersPostListViewWidget extends StatelessWidget {
-  const OthersPostListViewWidget(
+class OthersPostContainer extends StatelessWidget {
+  const OthersPostContainer(
       {super.key,
-      required this.post,
       required this.username,
       required this.time,
       required this.description,
       required this.postImage,
+      required this.postId,
+      required this.userId,
+      required this.likeStatus,
       this.profileImage,
       this.likeCount,
-      this.commentCount});
+      this.commentCount,required this.isEnabledPop});
 
   final String username;
   final String time;
@@ -68,7 +34,10 @@ class OthersPostListViewWidget extends StatelessWidget {
   final String? profileImage;
   final int? likeCount;
   final int? commentCount;
-  final OthersPost post;
+  final int postId;
+  final int userId;
+  final bool likeStatus;
+  final bool isEnabledPop;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -76,7 +45,7 @@ class OthersPostListViewWidget extends StatelessWidget {
         SizedBox(
           height: 290,
           width: double.infinity,
-          // color: ksnackbarGreen,
+          //color: ksnackbarGreen,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
             child: Row(
@@ -103,7 +72,6 @@ class OthersPostListViewWidget extends StatelessWidget {
                               SizedBox(
                                 width: 250,
                                 height: 40,
-                                //color: kredColor,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -137,26 +105,16 @@ class OthersPostListViewWidget extends StatelessWidget {
                               itemBuilder: (context) {
                                 return [
                                   PopupMenuItem(
+                                    enabled:isEnabledPop ,
                                     child: Text(
                                       'View Profile',
                                       style: gPoppines15,
                                     ),
                                     onTap: () {
-                                      knavigatorPush(
-                                          context,
-                                          OthersProfilePage(
-                                              userId: post.userId));
+                                      knavigatorPush(context,
+                                          OthersProfilePage(userId: userId));
                                     },
                                   ),
-                                  // PopupMenuItem(
-                                  //   child: Text(
-                                  //     'Delete',
-                                  //     style: gPoppines15,
-                                  //   ),
-                                  //   onTap: () {
-
-                                  //   },
-                                  // )
                                 ];
                               },
                             ),
@@ -171,11 +129,37 @@ class OthersPostListViewWidget extends StatelessWidget {
                           color: ksnackbarRed,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            postImage,
-                            fit: BoxFit.cover,
+                        child: InstaImageViewer(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                              postImage,
+                              fit: BoxFit.cover,
+                              //adding loading circle
+                              errorBuilder: (context, error, stackTrace) =>
+                                  const Center(
+                                child: Text('😢'),
+                              ),
+                              loadingBuilder:
+                                  (context, child, loadingProgress) {
+                                final totalBytes =
+                                    loadingProgress?.expectedTotalBytes;
+                                final bytesLoaded =
+                                    loadingProgress?.cumulativeBytesLoaded;
+                                if (totalBytes != null && bytesLoaded != null) {
+                                  return Center(
+                                    child: CircularProgressIndicator(
+                                      backgroundColor: Colors.white70,
+                                      value: bytesLoaded / totalBytes,
+                                      color: kmain200,
+                                      strokeWidth: 5.0,
+                                    ),
+                                  );
+                                } else {
+                                  return child;
+                                }
+                              },
+                            ),
                           ),
                         ),
                       ),
@@ -184,51 +168,40 @@ class OthersPostListViewWidget extends StatelessWidget {
                         children: [
                           w10,
                           LikeButton(
+                            bubblesSize: 106,
                             size: 30,
-                            isLiked: post.likeStatus,
+                            isLiked: likeStatus,
                             onTap: (isLiked) async {
                               if (isLiked) {
                                 context
                                     .read<LikeUnlikeBloc>()
-                                    .add(UnlikeEvent(postId: post.postId));
+                                    .add(UnlikeEvent(postId: postId));
                               } else {
                                 context
                                     .read<LikeUnlikeBloc>()
-                                    .add(LikeEvent(postId: post.postId));
+                                    .add(LikeEvent(postId: postId));
                               }
                               return !isLiked;
                             },
                             likeCount: int.tryParse(likeCount.toString()),
                           ),
-                          // SizedBox(
-                          //   height: 20,
-                          //   width: 20,
-                          //   child: Image.asset('lib/core/icons/love.png'),
-                          // ),
-                          // likeCount == null ? w20 : w10,
-                          // Text(
-                          //   likeCount.toString(),
-                          //   style: gPoppines15,
-                          // ),
                           w10,
-
                           GestureDetector(
                             onTap: () {
                               showBottomSheet(
-                                  backgroundColor: Colors.transparent,
-                                  context: context,
-                                  builder: (context) {
-                                    return DraggableScrollableSheet(
-                                      initialChildSize: 0.6,
-                                      minChildSize: 0.2,
-                                      maxChildSize: 0.6,
-                                      builder: (context, scrollController) {
-                                        return CommentBox(
-                                          postId: post.postId,
-                                        );
-                                      },
-                                    );
-                                  });
+                                backgroundColor: Colors.transparent,
+                                context: context,
+                                builder: (context) {
+                                  return DraggableScrollableSheet(
+                                    initialChildSize: 0.6,
+                                    minChildSize: 0.2,
+                                    maxChildSize: 0.6,
+                                    builder: (context, scrollController) {
+                                      return CommentBox(postId: postId);
+                                    },
+                                  );
+                                },
+                              );
                             },
                             child: SizedBox(
                               height: 25,
@@ -238,10 +211,12 @@ class OthersPostListViewWidget extends StatelessWidget {
                             ),
                           ),
                           w10,
-                          commentCount == 0
+                          commentCount == null
                               ? w10
-                              : Text(commentCount.toString(),
-                                  style: gPoppines15),
+                              : Text(
+                                  commentCount.toString(),
+                                  style: gPoppines15,
+                                ),
                         ],
                       )
                     ],

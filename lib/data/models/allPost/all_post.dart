@@ -7,7 +7,7 @@ class OthersPost {
   final String postAge;
   final List<String> mediaUrl;
   final int? commentsCount;
-  final bool? likeStatus;
+  final bool likeStatus;
   final int? likesCount;
 
   OthersPost({
@@ -19,7 +19,7 @@ class OthersPost {
     required this.postAge,
     required this.mediaUrl,
     this.commentsCount,
-    this.likeStatus,
+    required this.likeStatus,
     this.likesCount,
   });
 
@@ -33,7 +33,7 @@ class OthersPost {
       postAge: json['PostAge'],
       mediaUrl: List<String>.from(json['MediaUrl']),
       commentsCount: json['CommentsCount'],
-      likeStatus: json['LikeStatus'],
+      likeStatus: json['LikeStatus']??false,
       likesCount: json['LikesCount'],
     );
   }

@@ -100,11 +100,13 @@ class RelationService {
           //log('=============${followersList[0].name}');
           return followersList;
         } else if (response.statusCode == 400) {
-          String newAccessToken = await tokens.getAccessTokenRegenerator();
-          log('new accesstoken assigned');
-          secureStorage.writeSecureStorage('AccessToken', newAccessToken);
-          accessToken = newAccessToken;
-          return getFollowersList();
+          return [];
+          //for test
+          // String newAccessToken = await tokens.getAccessTokenRegenerator();
+          // log('new accesstoken assigned');
+          // secureStorage.writeSecureStorage('AccessToken', newAccessToken);
+          // accessToken = newAccessToken;
+          // return getFollowersList();
         }
         throw Exception('error in get followerlist ');
       } catch (e) {
@@ -116,7 +118,7 @@ class RelationService {
     }
   }
 
-   Future<List<UserRelation>> getFolloweingList() async {
+   Future<List<UserRelation>> getFollowingList() async {
     String? accessToken = await tokens.getAccessToken();
     String? refreshToken = await tokens.getRefreshToken();
     if (accessToken != null && refreshToken != null) {
@@ -141,11 +143,12 @@ class RelationService {
           //log('=============${followersList[0].name}');
           return followeingList;
         } else if (response.statusCode == 400) {
-          String newAccessToken = await tokens.getAccessTokenRegenerator();
-          log('new accesstoken assigned');
-          secureStorage.writeSecureStorage('AccessToken', newAccessToken);
-          accessToken = newAccessToken;
-          return getFolloweingList();
+          return [];
+          // String newAccessToken = await tokens.getAccessTokenRegenerator();
+          // log('new accesstoken assigned');
+          // secureStorage.writeSecureStorage('AccessToken', newAccessToken);
+          // accessToken = newAccessToken;
+          // return getFollowingList();
         }
         throw Exception('error in get followeingList ');
       } catch (e) {

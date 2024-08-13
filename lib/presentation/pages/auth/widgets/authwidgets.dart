@@ -99,6 +99,6 @@ Container kwidth90Button(String title) => Container(
       child: Center(
           child: Text(
         title,
-        style: const TextStyle(fontWeight: FontWeight.w500),
+        style:  TextStyle(fontWeight: FontWeight.w500,color: kblackColor),
       )),
     );

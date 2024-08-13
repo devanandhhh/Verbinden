@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verbinden/core/colors_constant.dart';
 import 'package:verbinden/core/constant.dart';
+import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
+import 'package:verbinden/presentation/pages/others_Profile/othersProfile.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/methods.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
+import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 import '../../bloc/get_connections/get_connections_bloc.dart';
 
@@ -34,12 +37,48 @@ class ConnectionsScreen extends StatelessWidget {
                   indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: kblackColor),
-                  tabs: const [
-                    Tab(
-                      text: 'Followers',
+                  tabs: [
+                    BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
+                      builder: (context, state) {
+                        if (state is GetConnectionLoadingState) {
+                          return const Tab(
+                            text: 'Followers ( )',
+                          );
+                        } else if (state is FollowerListLoadedState) {
+                          return Tab(
+                            text: 'Followers (${state.followerList.length})',
+                          );
+                        } else if (state is FollowerListFaliureState) {
+                          return const Tab(
+                            text: 'Follower(0)',
+                          );
+                        } else {
+                          return const Tab(
+                            text: 'Followers',
+                          );
+                        }
+                      },
                     ),
-                    Tab(
-                      text: 'Followings',
+                    BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
+                      builder: (context, state) {
+                        if (state is GetConnectionLoadingState) {
+                          return const Tab(
+                            text: 'Following ( )',
+                          );
+                        } else if (state is FollowingListLoadedState) {
+                          return Tab(
+                            text: 'Followings (${state.followingList.length})',
+                          );
+                        } else if (state is FollowingListFaliureState) {
+                          return const Tab(
+                            text: 'Following (0)',
+                          );
+                        } else {
+                          return const Tab(
+                            text: 'Followings',
+                          );
+                        }
+                      },
                     )
                   ],
                 ),
@@ -64,10 +103,15 @@ class FollowersPage extends StatelessWidget {
         builder: (context, state) {
           if (state is GetConnectionLoadingState) {
             return sizedboxWithCircleprogressIndicator();
-          } else if (state is FollowerListLoadedState) {
+          }else if (state is FollowerListFaliureState) {
+            return Center(
+              child: Text(state.error),
+            );}
+           else if (state is FollowerListLoadedState) {
             return ListView.separated(
                 itemBuilder: (context, index) {
                   final data = state.followerList[index];
+                  final userId = data.userId;
                   return ListTile(
                     leading: CircleAvatar(
                       radius: 25,
@@ -77,6 +121,12 @@ class FollowersPage extends StatelessWidget {
                     ),
                     title: Text(data.name),
                     subtitle: Text(data.userName),
+                    trailing: GestureDetector(
+                        onTap: () {
+                          knavigatorPush(
+                              context, OthersProfilePage(userId: userId));
+                        },
+                        child: kwidth90Button('View Profile')),
                   );
                 },
                 separatorBuilder: (context, index) {
@@ -99,15 +149,21 @@ class FollowingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
     return Scaffold(
       body: BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
         builder: (context, state) {
           if (state is GetConnectionLoadingState) {
             return sizedboxWithCircleprogressIndicator();
-          } else if (state is FollowerListLoadedState) {
+          } else if (state is FollowingListFaliureState) {
+            return Center(
+              child: Text(state.error),
+            );
+          } else if (state is FollowingListLoadedState) {
             return ListView.separated(
                 itemBuilder: (context, index) {
-                  final data = state.followerList[index];
+                  final data = state.followingList[index];
+                  final userId = data.userId;
                   return ListTile(
                     leading: CircleAvatar(
                       radius: 25,
@@ -117,12 +173,18 @@ class FollowingsPage extends StatelessWidget {
                     ),
                     title: Text(data.name),
                     subtitle: Text(data.userName),
+                    trailing: GestureDetector(
+                        onTap: () {
+                          knavigatorPush(
+                              context, OthersProfilePage(userId: userId));
+                        },
+                        child: kwidth90Button('View Profile')),
                   );
                 },
                 separatorBuilder: (context, index) {
                   return kdivider();
                 },
-                itemCount: state.followerList.length);
+                itemCount: state.followingList.length);
           } else {
             return ksizedbox225Text(title: 'Nothing');
           }

@@ -10,12 +10,14 @@ import 'package:verbinden/presentation/cubit/passwordValidation/password_visibil
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 import 'presentation/bloc/add_profile_picture/add_profile_picture_bloc.dart';
+import 'presentation/bloc/bloc/like_unlike_bloc.dart';
 import 'presentation/bloc/bottomNav/bottom_nav_cubit.dart';
 import 'presentation/bloc/explore/explore_bloc.dart';
 import 'presentation/bloc/get_connections/get_connections_bloc.dart';
 import 'presentation/bloc/home_bloc/home_bloc.dart';
 import 'presentation/bloc/others_profile/others_profile_bloc.dart';
 import 'presentation/bloc/otp_validation/otp_validation_bloc.dart';
+import 'presentation/bloc/post_comment/post_comment_bloc.dart';
 import 'presentation/bloc/search/search_bloc.dart';
 import 'presentation/bloc/upload_post/upload_post_bloc.dart';
 import 'presentation/bloc/userPostFetch/user_post_fech_bloc.dart';
@@ -23,7 +25,7 @@ import 'presentation/bloc/user_signup/signup_bloc.dart';
 
 void main() async {
   runApp(const MyApp());
-}
+} 
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -48,7 +50,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context)=>ExploreBloc()),
         BlocProvider(create: (context)=>OthersProfileBloc()),
         BlocProvider(create: (context)=>OthersPostsBloc()),
-        BlocProvider(create: (context)=>GetConnectionsBloc())
+        BlocProvider(create: (context)=>GetConnectionsBloc()),
+        BlocProvider(create: (context)=>PostCommentBloc()),
+        BlocProvider(create: (context)=>LikeUnlikeBloc())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

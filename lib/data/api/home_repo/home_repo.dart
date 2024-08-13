@@ -18,7 +18,7 @@ class HomePageService {
     //checking the accesstoken and refreshtoken is not null
     if (accessToken != null && refreshToken != null) {
       final header = {'x-api-key': 'apikey@ciao', 'x-access-token': accessToken};
-      final url = Uri.parse("${EndPoints.baseUrl}/post/userrelatedposts?")
+      final url = Uri.parse("${EndPoints.baseUrl}/post/userrelatedposts?")  
           .replace(queryParameters: {'limit': limit.toString()});
       try {
         //getting response
