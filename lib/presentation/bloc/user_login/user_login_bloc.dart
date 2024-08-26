@@ -27,7 +27,7 @@ class UserLoginBloc extends Bloc<UserLoginEvent, UserLoginState> {
     try {
 
       Response? response = await service.userLogin(event.email, event.password);
-
+       log('respo  $response');
       if (response != null && response.statusCode == 200) {
 
         final String accessToken =

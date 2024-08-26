@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:verbinden/presentation/bloc/others_profile/others_profile_bloc.dart';
+import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
+import 'package:verbinden/presentation/pages/message/user_message/user_message.dart';
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/others_Profile/widgets/widgets.dart';
+import 'package:verbinden/presentation/pages/profile/profile_page.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
+import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 import '../../../core/colors_constant.dart';
 import '../../../core/constant.dart';
@@ -137,33 +143,34 @@ class OthersProfilePage extends StatelessWidget {
                                           UnfollowButtonClicked(
                                               userId: state.model!
                                                   .afterExecution.userId));
-
-                                      // context.read<OthersProfileBloc>().add(
-                                      //     OthersProfileDataFetchEvent(
-                                      //         userId: userId));
-
-                                      // await RelationService().unfollowRequest(
-                                      //     userId: state
-                                      //         .model!.afterExecution.userId
-                                      //         .toString());
-                                      // context.read<OthersProfileBloc>().add(
-                                      //     OthersProfileDataFetchEvent(
-                                      //         userId: userId));
                                     },
                                     child: profileButton('Following'))
                                 : GestureDetector(
                                     onTap: () async {
-                                      print('follow button clicked');
+                                      log('follow button clicked');
                                       context.read<OthersProfileBloc>().add(
                                           FollowButtonClicked(
                                               userId: state.model!
                                                   .afterExecution.userId));
-                                      // context.read<OthersProfileBloc>().add(
-                                      //     OthersProfileDataFetchEvent(
-                                      //         userId: userId));
                                     },
                                     child: profileButton('Follow')),
-                            profileButton('Message')
+                            GestureDetector(
+                                onTap: () {
+                                  nameofuser ==
+                                          state.model!.afterExecution.userName
+                                      ? ScaffoldMessenger.of(context)
+                                          .showSnackBar(kSnakbar(text: "You can't chat with Yourself...",col: ksnackbarRed))
+                                      : knavigatorPush(
+                                          context,
+                                          UserMessage(
+                                            nameofmessager: state
+                                                .model!.afterExecution.name,
+                                            userId: state
+                                                .model!.afterExecution.userId
+                                                .toString(),
+                                          ));
+                                },
+                                child: profileButton('Message'))
                           ],
                         ),
                       ],

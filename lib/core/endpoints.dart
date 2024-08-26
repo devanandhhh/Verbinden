@@ -23,4 +23,7 @@ class EndPoints{
   static String comment ='/comment';
   static String like ='/like';
  
+  static String chat = '/chat';
+  static String recentChatProfiles ='/recentchatprofiles';
+  static String onetoonechats ='/onetoonechats';
 } 

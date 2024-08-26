@@ -1,3 +1,5 @@
+import '../../../core/constant.dart';
+
 class OthersPost {
   final int userId;
   final String userName;
@@ -27,7 +29,7 @@ class OthersPost {
     return OthersPost(
       userId: json['UserId'],
       userName: json['UserName'],
-      userProfileImgUrl: json['UserProfileImgURL'],
+      userProfileImgUrl: json['UserProfileImgURL']??unKnown ,
       postId: json['PostId'],
       caption: json['Caption'],
       postAge: json['PostAge'],

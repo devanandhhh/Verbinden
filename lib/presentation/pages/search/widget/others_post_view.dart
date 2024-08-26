@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:verbinden/core/colors_constant.dart';
 import 'package:verbinden/data/models/allPost/all_post.dart';
-import 'package:verbinden/presentation/bloc/bloc/like_unlike_bloc.dart';
+import 'package:verbinden/presentation/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:verbinden/presentation/pages/others_Profile/othersProfile.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/comment_box.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
@@ -74,7 +74,7 @@ class OthersPostListViewWidget extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 290,
+          height: MediaQuery.of(context).size.height * .56  ,// 290,
           width: double.infinity,
           // color: ksnackbarGreen,
           child: Padding(
@@ -101,8 +101,11 @@ class OthersPostListViewWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
-                                width: 250,
-                                height: 40,
+                                width: MediaQuery.of(context).size.width * 0.64,
+                                // 250,
+                                height:
+                                    MediaQuery.of(context).size.height * .057,
+                                //40,
                                 //color: kredColor,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,8 +168,11 @@ class OthersPostListViewWidget extends StatelessWidget {
                       ),
                       h10,
                       Container(
-                        height: 170,
-                        width: 282,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        //170,
+                        width:
+                            //282,
+                            MediaQuery.of(context).size.width * 0.72,
                         decoration: BoxDecoration(
                           color: ksnackbarRed,
                           borderRadius: BorderRadius.circular(10),
@@ -191,25 +197,18 @@ class OthersPostListViewWidget extends StatelessWidget {
                                 context
                                     .read<LikeUnlikeBloc>()
                                     .add(UnlikeEvent(postId: post.postId));
+                                //  context.read<ExploreBloc>().add(ExploreFetchEvent());
                               } else {
                                 context
                                     .read<LikeUnlikeBloc>()
                                     .add(LikeEvent(postId: post.postId));
+                                // context.read<ExploreBloc>().add(ExploreFetchEvent());
                               }
                               return !isLiked;
                             },
                             likeCount: int.tryParse(likeCount.toString()),
                           ),
-                          // SizedBox(
-                          //   height: 20,
-                          //   width: 20,
-                          //   child: Image.asset('lib/core/icons/love.png'),
-                          // ),
-                          // likeCount == null ? w20 : w10,
-                          // Text(
-                          //   likeCount.toString(),
-                          //   style: gPoppines15,
-                          // ),
+                         
                           w10,
 
                           GestureDetector(
@@ -238,7 +237,7 @@ class OthersPostListViewWidget extends StatelessWidget {
                             ),
                           ),
                           w10,
-                          commentCount == 0
+                          commentCount == null
                               ? w10
                               : Text(commentCount.toString(),
                                   style: gPoppines15),

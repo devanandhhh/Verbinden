@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verbinden/core/colors_constant.dart';
 import 'package:verbinden/core/constant.dart';
+import 'package:verbinden/core/style.dart';
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/methods.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
@@ -75,6 +76,23 @@ class SearchWidget extends StatelessWidget {
                     )
                   else if (state is SearchFaliureState)
                     ksizedbox225Text(title: 'no user available')
+                  else
+                    Center(
+                      child: SizedBox(
+                        height: 225,
+                        child: Center(
+                          child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Icon(Icons.search),
+                              Text(
+                                'Search Username ',
+                                style: googleFabz20,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
                 ],
               );
             },

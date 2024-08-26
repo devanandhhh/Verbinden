@@ -19,7 +19,9 @@ ExploreService service =ExploreService();
       ExploreFetchEvent event, Emitter<ExploreState> emit) async {
         emit(ExploreLoadingState());
         try {
+          print('one');
           List<OthersPost>exploreData =await service.getExplore();
+          print('two');
           log('explore data feched $exploreData');
           emit(ExploreLoadedState(exploreData: exploreData));
 

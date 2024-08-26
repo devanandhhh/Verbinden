@@ -7,21 +7,24 @@ import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
 
+import '../../../data/api/websocket_repo/websocket_repo.dart';
 import '../../bloc/home_bloc/home_bloc.dart';
 import '../../bloc/profile/profile_bloc.dart';
 import '../profile/widgets/methods.dart';
 import 'widgets/section_one.dart';
 import 'widgets/others_post_container.dart';
 
-// Screens for the different bottom navigation items
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
     context.read<HomeBloc>().add(HomeFetchPostEvent());
     context.read<ProfileBloc>().add(ProfileFetchDataEvent());
+    // WebsocketService websocketService =WebsocketService();
+    //  websocketService.toConnectChannel(context);
     return Scaffold(
       appBar: kAppbarDecorate('Verbinden', true),
       body: Column(
@@ -29,18 +32,15 @@ class HomePage extends StatelessWidget {
           BlocBuilder<ProfileBloc, ProfileState>(
             builder: (context, state) {
               if (state is ProfileLoadingState) {
-                Center(
-                  child: LinearProgressIndicator(
-                    backgroundColor: kmain200,
-                  ),
-                );
+              return sizedboxWithCircleprogressIndicator();
               } else if (state is ProfileLoadedState) {
                 nameofuser = state.profileData.afterExecution.userName;
                 imageOfUser =
                     state.profileData.afterExecution.userProfileImageURL;
+                 WebsocketService().toConnectChannel(context);
               }
               return SectionOne(
-                userName: nameofuser, 
+                userName: nameofuser,
                 userImage: imageOfUser,
               );
             },
@@ -51,6 +51,7 @@ class HomePage extends StatelessWidget {
               if (state is HomeLoadingState) {
                 return sizedboxWithCircleprogressIndicator();
               } else if (state is HomeLoadedState) {
+                WebsocketService().toConnectChannel(context);
                 return Expanded(
                   child: ListView.builder(
                     itemCount: state.othersPost.length,

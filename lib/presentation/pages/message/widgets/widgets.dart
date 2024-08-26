@@ -17,17 +17,20 @@ AppBar kAppbarDecorate(String title,[bool notHomeScreen =false,bool backbutton =
 
 class MessageBar extends StatelessWidget {
   const MessageBar(
-      {super.key,
+      {super.key,this.imageurl,
       required this.name,
       required this.time,
-      required this.lastmsg});
+      required this.lastmsg,required this.date});
   final String time;
   final String name; 
   final String lastmsg;
+ final String? imageurl;
+ final String date;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        //kdivider(),
         SizedBox(
           height: 80,
           width: double.infinity,
@@ -38,7 +41,7 @@ class MessageBar extends StatelessWidget {
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
-                  image:const DecorationImage(image:NetworkImage(unKnown)),
+                  image: DecorationImage(image:NetworkImage(imageurl??unKnown,),fit: BoxFit.cover),
                     color: ksnackbarRed,
                     borderRadius: BorderRadius.circular(10)),
               ),
@@ -46,26 +49,34 @@ class MessageBar extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: SizedBox(
-                  width: 220,
+                  width: 200,
                   height: 70,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        shortenString(name, 20),
                         style: googleFabz20,
                       ),
                       Text(
-                        lastmsg,
+                        shortenString(lastmsg,20),
                         style: googleFabz18,
                       )
                     ],
                   ),
                 ),
               ),
-              Text(
-                time,
-                style: googleFabz,
+              Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    date,
+                    style:  gFaBeeZe(12, kgreyColor) , 
+                  ), 
+                   Text(
+                    time,
+                    style: googleFabz, 
+                  ),
+                ],
               )
             ],
           ),
@@ -83,3 +94,10 @@ class MessageBar extends StatelessWidget {
         child: Divider(),
       );
   }
+String shortenString(String input,int range) { 
+  if (input.length > range) {
+    return '${input.substring(0, range)}...';
+  } else {
+    return input;
+  }
+}

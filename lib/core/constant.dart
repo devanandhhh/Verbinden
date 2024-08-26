@@ -19,3 +19,4 @@ const ksimpleStyle =  TextStyle(
 const unknown ='https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Unknown_person.jpg/694px-Unknown_person.jpg';
 const unKnown ='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJqwlbuDdMInIdKddVvYy81oWNclXytkMCR1oCtsSQ1ZKexuBmdKT1buq2sJ5iCqEMDac&usqp=CAU';
 
+double h290 =290;

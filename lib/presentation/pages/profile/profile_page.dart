@@ -45,10 +45,7 @@ class ProfilePage extends StatelessWidget {
             h10,
             kdivider(),
             Center(
-              // child: InkWell(
-              //   onTap: () {
-              //     knavigatorPush(context, AnimationSample());
-              //   },
+             
               child: Text(
                 'My Post',
                 style: gFaBeeZe(20, Colors.black),

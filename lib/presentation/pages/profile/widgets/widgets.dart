@@ -10,6 +10,7 @@ import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/data/models/profile/profile_model.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
 import 'package:verbinden/presentation/pages/following&followers/follow_Screen.dart';
+import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/methods.dart';
 
@@ -75,7 +76,8 @@ class ProfileSection1 extends StatelessWidget {
       }
 
       return SizedBox(
-        height: 225,
+        height:MediaQuery.of(context).size.height*.28, 
+        // 225,
         width: double.infinity,
         child: Column(
           children: [
@@ -88,8 +90,10 @@ class ProfileSection1 extends StatelessWidget {
                         horizontal: 13,
                       ),
                       child: SizedBox(
-                        height: 160,
-                        width: 240,
+                        height:MediaQuery.of(context).size.height*.2, 
+                        // 160,
+                        width: MediaQuery.of(context).size.width*.6,
+                        //240,
                         // color: Colors.black,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,10 +102,10 @@ class ProfileSection1 extends StatelessWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(model.afterExecution.name,
+                                Text(shortenString(model.afterExecution.name, 7),
                                     style: gPoppines33),
                                 Text(
-                                  model.afterExecution.userName,
+                                  shortenString(model.afterExecution.userName, 9),
                                   style: gfontRalewayFont18,
                                 )
                               ],
@@ -109,7 +113,7 @@ class ProfileSection1 extends StatelessWidget {
                             Text(
                               model.afterExecution.bio == ""
                                   ? '+ Add Bio'
-                                  : model.afterExecution.bio,
+                                  : shortenString(model.afterExecution.bio, 19),
                               style: GoogleFonts.nunito(
                                 textStyle: const TextStyle(
                                   fontSize: 17,

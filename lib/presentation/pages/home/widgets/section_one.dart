@@ -11,9 +11,12 @@ class SectionOne extends StatelessWidget {
   final String? userImage;
   @override
   Widget build(BuildContext context) {
+    // Size size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 85,
-      width: double.infinity,
+      height:
+      //  size.height*0.11,
+      85,
+      width: double.infinity ,
       //  color: ksnackbarGreen,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),

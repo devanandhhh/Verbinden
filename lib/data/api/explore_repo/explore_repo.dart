@@ -17,13 +17,16 @@ class ExploreService{
     final url =Uri.parse('${EndPoints.baseUrl}${EndPoints.explore}?').replace(queryParameters: {'limit':limit.toString(),'offset':offset.toString()});
     try {
       final response = await http.get(url,headers: header);
-      print('response from getExplore $response');
+      print('response from getExplore ${response.body}');
       if(response.statusCode==200){
         final data =jsonDecode(response.body);
+        // log('data :${data}');
         List<OthersPost> explorePost =[];
         for(var item in data['after execution']['PostsData']){
+          print(' item $item');
           explorePost.add(OthersPost.fromJson(item));
         }
+       // print('explorepost =${explorePost}');
         return explorePost;
       }else if(response.statusCode==400){
          String newAccessToken = await tokensHere.getAccessTokenRegenerator();

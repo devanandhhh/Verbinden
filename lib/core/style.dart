@@ -14,3 +14,5 @@ final gfontsize30 =GoogleFonts.merriweather(textStyle:const TextStyle(fontSize: 
       textStyle:
           TextStyle(fontSize: size, fontWeight: FontWeight.bold, color: color));
 }   
+final textWhiteMsgTime = GoogleFonts.aBeeZee(color: kwhiteColor);
+final textblackMsgTime = GoogleFonts.aBeeZee(color: kblackColor);

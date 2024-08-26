@@ -38,7 +38,7 @@ class MyPostViewer extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: 290,
+          height: MediaQuery.of(context).size.height * .56, // 290,
           width: double.infinity,
           // color: ksnackbarGreen,
           child: Padding(
@@ -62,8 +62,12 @@ class MyPostViewer extends StatelessWidget {
                       Row(
                         children: [
                           SizedBox(
-                            width: 250,
-                            height: 40,
+                            // width: 250,
+                            // height: 40,
+                             width: MediaQuery.of(context).size.width * 0.64,
+                                // 250,
+                                height:
+                                    MediaQuery.of(context).size.height * .057, 
                             //color: kredColor,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,8 +217,11 @@ class MyPostViewer extends StatelessWidget {
                       ),
                       h10,
                       Container(
-                        height: 170,
-                        width: 282,
+                        height: MediaQuery.of(context).size.height * 0.4,
+                        //170,
+                        width:
+                            //282,
+                            MediaQuery.of(context).size.width * 0.72,
                         decoration: BoxDecoration(
                           color: ksnackbarRed,
                           borderRadius: BorderRadius.circular(10),
