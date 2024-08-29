@@ -29,21 +29,14 @@ class OthersProfilePage extends StatelessWidget {
 
     context.read<OthersPostsBloc>().add(OthersPostsFetchEvent(userId: userId));
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: true, actions: [
-        IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.menu,
-              size: 30,
-            )),
-      ]),
+      appBar: buildAppbar(),
       body: SingleChildScrollView(
         child: Column(
           children: [
             BlocBuilder<OthersProfileBloc, OthersProfileState>(
               builder: (context, state) {
                 if (state is OthersProfileLoadingState) {
-                  return sizedboxWithCircleprogressIndicator();
+                  return buildShimmerProfile(context);
                 } else if (state is OthersProfileLoadedState) {
                   return SizedBox(
                     height: 225,
@@ -214,5 +207,16 @@ class OthersProfilePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  AppBar buildAppbar() {
+    return AppBar(automaticallyImplyLeading: true, actions: [
+      IconButton(
+          onPressed: () {},
+          icon: const Icon(
+            Icons.menu,
+            size: 30,
+          )),
+    ]);
   }
 }

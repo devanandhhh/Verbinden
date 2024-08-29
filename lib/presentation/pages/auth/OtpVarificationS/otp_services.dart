@@ -108,28 +108,5 @@ class OtpValidationPage extends StatelessWidget {
     );
   }
 
-  // Widget buildOtpField(
-  //     TextEditingController controller, bool autoFocus, BuildContext ctx) {
-  //   return SizedBox(
-  //     width: 50,
-  //     child: TextField(
-  //       controller: controller,
-  //       autofocus: autoFocus,
-  //       textAlign: TextAlign.center,
-  //       keyboardType: TextInputType.number,
-  //       maxLength: 1,
-  //       decoration: InputDecoration(
-  //         counterText: '',
-  //         border: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(12),
-  //         ),
-  //       ),
-  //       onChanged: (value) {
-  //         if (value.length == 1) {
-  //           FocusScope.of(ctx).nextFocus();
-  //         }
-  //       },
-  //     ),
-  //   );
-  // }
+ 
 }

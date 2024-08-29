@@ -37,19 +37,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
-        BlocProvider<OtpValidationBloc>(
-            create: (context) => OtpValidationBloc()),
-        BlocProvider<UserLoginBloc>(
-          create: (context) => UserLoginBloc(),
-        ),
-        BlocProvider<ForgotPasswordBloc>(
-          create: (context) => ForgotPasswordBloc(),
-        ),
-        BlocProvider<BottomNavCubit>(
-          create: (context) => BottomNavCubit(),
-        ),
-        BlocProvider<ProfileBloc>(create: (context) => ProfileBloc()),
+        BlocProvider(create: (context) => SignupBloc()),
+        BlocProvider(create: (context) => OtpValidationBloc()),
+        BlocProvider(create: (context) => UserLoginBloc()),
+        BlocProvider(create: (context) => ForgotPasswordBloc()),
+        BlocProvider(create: (context) => BottomNavCubit()),
+        BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => EditProfileBloc()),
         BlocProvider(create: (context) => PasswordVisibilityCubit()),
         BlocProvider(create: (context) => UploadPostBloc()),

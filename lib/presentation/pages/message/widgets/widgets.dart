@@ -5,11 +5,16 @@ import '../../../../core/colors_constant.dart';
 import '../../../../core/constant.dart';
 import '../../../../core/style.dart';
 
-AppBar kAppbarDecorate(String title,[bool notHomeScreen =false,bool backbutton =false]) {
+AppBar kAppbarDecorate(String title,
+    [bool notHomeScreen = false, bool backbutton = false]) {
   return AppBar(
     title: Text(
       title,
-      style:notHomeScreen?GoogleFonts.anton(textStyle:TextStyle(fontSize: 34,color:kmainColor),): GoogleFonts.aBeeZee(textStyle: const TextStyle(fontSize: 33)),
+      style: notHomeScreen
+          ? GoogleFonts.anton(
+              textStyle: TextStyle(fontSize: 34, color: kmainColor),
+            )
+          : GoogleFonts.aBeeZee(textStyle: const TextStyle(fontSize: 33)),
     ),
     automaticallyImplyLeading: backbutton,
   );
@@ -17,22 +22,24 @@ AppBar kAppbarDecorate(String title,[bool notHomeScreen =false,bool backbutton =
 
 class MessageBar extends StatelessWidget {
   const MessageBar(
-      {super.key,this.imageurl,
+      {super.key,
+      this.imageurl,
       required this.name,
       required this.time,
-      required this.lastmsg,required this.date});
+      required this.lastmsg,
+      required this.date});
   final String time;
-  final String name; 
+  final String name;
   final String lastmsg;
- final String? imageurl;
- final String date;
+  final String? imageurl;
+  final String date;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         //kdivider(),
         SizedBox(
-          height: 80,
+          height: 90,
           width: double.infinity,
           child: Row(
             children: [
@@ -41,40 +48,47 @@ class MessageBar extends StatelessWidget {
                 height: 60,
                 width: 60,
                 decoration: BoxDecoration(
-                  image: DecorationImage(image:NetworkImage(imageurl??unKnown,),fit: BoxFit.cover),
-                    color: ksnackbarRed,
+                    image: DecorationImage(
+                        image: NetworkImage(
+                          imageurl ?? unKnown,
+                        ),
+                        fit: BoxFit.cover),
+                    color: Colors.black.withOpacity(.2),
                     borderRadius: BorderRadius.circular(10)),
               ),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                 child: SizedBox(
-                  width: 200,
+                  width: MediaQuery.of(context).size.width * .5,
+                  // 200,
                   height: 70,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         shortenString(name, 20),
                         style: googleFabz20,
                       ),
                       Text(
-                        shortenString(lastmsg,20),
+                        shortenString(lastmsg, 20),
                         style: googleFabz18,
                       )
                     ],
                   ),
                 ),
               ),
-              Column(mainAxisAlignment: MainAxisAlignment.center,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     date,
-                    style:  gFaBeeZe(12, kgreyColor) , 
-                  ), 
-                   Text(
+                    style: gFaBeeZe(12, kgreyColor),
+                  ),
+                  Text(
                     time,
-                    style: googleFabz, 
+                    style: googleFabz,
                   ),
                 ],
               )
@@ -85,16 +99,16 @@ class MessageBar extends StatelessWidget {
       ],
     );
   }
-
- 
 }
- Padding kdivider() {
-    return const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Divider(),
-      );
-  }
-String shortenString(String input,int range) { 
+
+Padding kdivider() {
+  return const Padding(
+    padding: EdgeInsets.symmetric(horizontal: 10),
+    child: Divider(),
+  );
+}
+
+String shortenString(String input, int range) {
   if (input.length > range) {
     return '${input.substring(0, range)}...';
   } else {

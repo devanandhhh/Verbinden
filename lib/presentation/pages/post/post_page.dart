@@ -18,6 +18,7 @@ class PostScreen extends StatelessWidget {
     final pickImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
     if (pickImage != null) {
+      // ignore: use_build_context_synchronously
       context.read<UploadPostBloc>().add(ImagePickEvent(File(pickImage.path)));
     }
   } 
@@ -102,7 +103,7 @@ class PostScreen extends StatelessWidget {
                       
                 } else if (state is UploadFaliureState) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      kSnakbar(text: state.error, col: ksnackbarRed));
+                      kSnakbar(text: 'Image size to big', col: ksnackbarRed));
                 }
               },
               builder: (context, state) {

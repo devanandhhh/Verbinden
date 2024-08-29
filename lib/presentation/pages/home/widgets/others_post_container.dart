@@ -92,7 +92,7 @@ class OthersPostContainer extends StatelessWidget {
     );
   }
 
-  SizedBox buildUsernamAndTimeRow(context) {
+  Widget buildUsernamAndTimeRow(context) {
     return SizedBox(
       width:
       MediaQuery.of(context).size.width*0.64,
@@ -121,7 +121,7 @@ class OthersPostContainer extends StatelessWidget {
     );
   }
 
-  Row buildInteractionRow(BuildContext context) {
+  Widget buildInteractionRow(BuildContext context) {
     return Row(
       children: [
         w10,
@@ -174,7 +174,7 @@ class OthersPostContainer extends StatelessWidget {
     );
   }
 
-  Container buildPostImage(context) {
+  Widget buildPostImage(context) {
     return Container(
       height:MediaQuery.of(context).size.height*0.4,//170,
       width://282,
@@ -215,7 +215,7 @@ class OthersPostContainer extends StatelessWidget {
     );
   }
 
-  SizedBox buildPopupMenu(context) {
+  Widget buildPopupMenu(context) {
     return SizedBox(
       width:30,
       height: 40,

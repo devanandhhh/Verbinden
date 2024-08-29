@@ -24,86 +24,95 @@ class ViewProfile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Container(
-                  height: 180,
-                  width: 150,
-                  decoration: BoxDecoration(
-                      color: kgrey200, borderRadius: BorderRadius.circular(9)),
-                  child: model.afterExecution.userProfileImageURL == ""
-                      ? const Icon(
-                          Icons.person,
-                          size: 39,
-                        )
-                      : InstaImageViewer (
-                        child: ClipRRect(
-                          borderRadius:BorderRadius.circular(10),
-                          child: Image.network(
-                              model.afterExecution.userProfileImageURL,
-                              fit: BoxFit.cover,
-                            ),
-                        ),
-                      ),
-                ),
-                w10,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Name',
-                      style: gFaBeeZe(15, kgreyColor),
-                    ),
-                    Text(
-                      model.afterExecution.name,
-                      style: gfontsize20,
-                    ),
-                    h20,
-                    Text(
-                      'UserName',
-                      style: gFaBeeZe(15, kgreyColor),
-                    ),
-                    Text(
-                      model.afterExecution.userName,
-                      style: gfontsize20,
-                    ),
-                  ],
-                )
-              ],
-            ),
+            buildProfileHeader(),
             h20,
-            Text('Bio', style: gFaBeeZe(15, kgreyColor)),
-            Text(
-              model.afterExecution.bio == ""
+            buildTextSection(
+              label: 'Bio',
+              value: model.afterExecution.bio == ""
                   ? 'Bio not added'
                   : model.afterExecution.bio,
-              style: gfontsize20,
             ),
             h20,
-            Text('Followers Count', style: gFaBeeZe(15, kgreyColor)),
-            Text(
-                model.afterExecution.followersCount == 0
-                    ? 'No Followers'
-                    : model.afterExecution.followersCount.toString(),
-                style: gfontsize20),
+            buildTextSection(
+              label: 'Followers Count',
+              value: model.afterExecution.followersCount == 0
+                  ? 'No Followers'
+                  : model.afterExecution.followersCount.toString(),
+            ),
             h20,
-            Text('Following Count ', style: gFaBeeZe(15, kgreyColor)),
-            Text(
-                model.afterExecution.followingCount == 0
-                    ? 'No Followings'
-                    : model.afterExecution.followingCount.toString(),
-                style: gfontsize20),
+            buildTextSection(
+              label: 'Following Count',
+              value: model.afterExecution.followingCount == 0
+                  ? 'No Followings'
+                  : model.afterExecution.followingCount.toString(),
+            ),
             h20,
-            Text('Post Count', style: gFaBeeZe(15, kgreyColor)),
-            Text(
-              model.afterExecution.postsCount == 0
+            buildTextSection(
+              label: 'Post Count',
+              value: model.afterExecution.postsCount == 0
                   ? 'No Post'
                   : model.afterExecution.postsCount.toString(),
-              style: gfontsize20,
             )
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildProfileHeader() {
+    return Row(
+      children: [
+        buildProfileImage(),
+        w10,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            buildTextSection(label: 'Name', value: model.afterExecution.name),
+            h20,
+            buildTextSection(
+                label: 'Username', value: model.afterExecution.userName)
+          ],
+        )
+      ],
+    );
+  }
+
+  Column buildTextSection({required label, required value}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: gFaBeeZe(15, kgreyColor),
+        ),
+        Text(
+          value,
+          style: gfontsize20,
+        ),
+      ],
+    );
+  }
+
+  Widget buildProfileImage() {
+    return Container(
+      height: 180,
+      width: 150,
+      decoration: BoxDecoration(
+          color: kgrey200, borderRadius: BorderRadius.circular(9)),
+      child: model.afterExecution.userProfileImageURL == ""
+          ? const Icon(
+              Icons.person,
+              size: 39,
+            )
+          : InstaImageViewer(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.network(
+                  model.afterExecution.userProfileImageURL,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
     );
   }
 }

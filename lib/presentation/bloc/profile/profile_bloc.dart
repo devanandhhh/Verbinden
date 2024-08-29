@@ -26,6 +26,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ProfileModel? model = await service.getUserDetails();
       if (model != null) {
         emit(ProfileLoadedState(model));
+        
       }
     } catch (e) {
       log('$e is error');

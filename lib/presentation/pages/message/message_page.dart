@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verbinden/core/colors_constant.dart';
 import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/core/style.dart';
+import 'package:verbinden/presentation/pages/home/widgets/shimmer.dart';
 
 import 'package:verbinden/presentation/pages/message/user_message/user_message.dart';
 
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
-import 'package:verbinden/presentation/pages/profile/widgets/methods.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 import '../../bloc/chat_summary/chat_summary_bloc.dart';
@@ -22,60 +22,84 @@ class MessageScreen extends StatelessWidget {
     context.read<ChatSummaryBloc>().add(ChatSummaryFetchEvent());
     return Scaffold(
       appBar: kAppbarDecorate("Messages"),
-      body: BlocBuilder<ChatSummaryBloc, ChatSummaryState>(
-          builder: (context, state) {
-        if (state is ChatSummaryLoadingState) {
-          return sizedboxWithCircleprogressIndicator();
-        } else if (state is ChatSummaryFailureState) {
-          return Center(
-              child: Text(
-            'No Chat Yet',
-            style: gFaBeeZe(30, kgrey200),
-          ));
-        } else if (state is ChatSummaryLoadedState) {
-          return
-              //  SingleChildScrollView(
-              //   child:
-              Column(
-            children: [
-              kdivider(),
-              Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context, index) {
-                      final chatSummary = state.chatSummary[index];
-                      final time = formatTime(chatSummary.lastMessageTimeStamp);
-                      final date = getDate(chatSummary.lastMessageTimeStamp);
+      body: FutureBuilder(
+        future: Future.delayed(const Duration(seconds: 2)),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return ListView.separated(
+              itemBuilder: (context, index) {
+                return shimmerSecOne(context); // Your shimmer widget
+              },
+              separatorBuilder: (context, index) => kdivider(),
+              itemCount: 10,
+            );
+          } else {
+            return BlocBuilder<ChatSummaryBloc, ChatSummaryState>(
+                builder: (context, state) {
+              if (state is ChatSummaryLoadingState) {
+                return Expanded(
+                  child: ListView.separated(
+                      itemBuilder: (context, index) {
+                        return shimmerSecOne(context);
+                      },
+                      separatorBuilder: (context, index) => kdivider(),
+                      itemCount: 10),
+                );
+              } else if (state is ChatSummaryFailureState) {
+                return Center(
+                    child: Text(
+                  'No Chat Yet',
+                  style: gFaBeeZe(30, kgrey200),
+                ));
+              } else if (state is ChatSummaryLoadedState) {
+                return
+                    //  SingleChildScrollView(
+                    //   child:
+                    Column(
+                  children: [
+                    kdivider(),
+                    Expanded(
+                      child: ListView.separated(
+                          itemBuilder: (context, index) {
+                            final chatSummary = state.chatSummary[index];
+                            final time =
+                                formatTime(chatSummary.lastMessageTimeStamp);
+                            final date =
+                                getDate(chatSummary.lastMessageTimeStamp);
 
-                      return GestureDetector(
-                        onTap: () {
-                          knavigatorPush(
-                              context,
-                              UserMessage(
-                                nameofmessager: chatSummary.userName,
-                                imageurl: chatSummary.userProfileURL,
-                                userId: chatSummary.userID,
-                                lastSeen: time,
-                              ));
-                        },
-                        child: MessageBar(
-                            imageurl: chatSummary.userProfileURL,
-                            name: chatSummary.userName,
-                            time: time,
-                            date: convertDateFormat(date),
-                            lastmsg: chatSummary.lastMessageContent),
-                      );
-                    },
-                    separatorBuilder: (context, index) => w10,
-                    itemCount: state.chatSummary.length),
-              ),
-            ],
-          );
-          // );
-        }
-        return const Center(
-          child: Text('No text message yet'),
-        );
-      }),
+                            return GestureDetector(
+                              onTap: () {
+                                knavigatorPush(
+                                    context,
+                                    UserMessage(
+                                      nameofmessager: chatSummary.userName,
+                                      imageurl: chatSummary.userProfileURL,
+                                      userId: chatSummary.userID,
+                                      lastSeen: time,
+                                    ));
+                              },
+                              child: MessageBar(
+                                  imageurl: chatSummary.userProfileURL,
+                                  name: chatSummary.userName,
+                                  time: time,
+                                  date: convertDateFormat(date),
+                                  lastmsg: chatSummary.lastMessageContent),
+                            );
+                          },
+                          separatorBuilder: (context, index) => w10,
+                          itemCount: state.chatSummary.length),
+                    ),
+                  ],
+                );
+                // );
+              }
+              return const Center(
+                child: Text('No text message yet'),
+              );
+            });
+          }
+        },
+      ),
     );
   }
   //   ),
@@ -85,7 +109,7 @@ class MessageScreen extends StatelessWidget {
 String? formatDate(String? timedata) {
   if (timedata != null) {
     String date = timedata.split(' ').sublist(0, 1).toString();
-    print(date);
+    // print(date);
     return date;
   }
   return '';

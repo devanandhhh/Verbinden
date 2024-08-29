@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:verbinden/presentation/pages/search/widget/others_post_view.dart';
 import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 
 import '../../../../core/colors_constant.dart';
 import '../../../../core/constant.dart';
 import '../../../bloc/others_posts/others_posts_bloc.dart';
+import '../../search/widget/explore_page.dart';
 
 GridView otherPostGridView(OthersPostLoadedState state) {
   return GridView.builder(
@@ -19,7 +19,7 @@ GridView otherPostGridView(OthersPostLoadedState state) {
       final post = state.othersPost[index];
       return GestureDetector(
         onTap: (){
-          knavigatorPush(context, OthersPostView(post: post, index: index));
+          knavigatorPush(context, ExplorePostView(post: post, index: index));
         },
         child: Container(
           decoration: BoxDecoration(

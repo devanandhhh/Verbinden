@@ -13,14 +13,16 @@ class SplashScreen extends StatelessWidget {
     Future.delayed(const Duration(seconds: 3), () async {
       final sharedPrefz = await SharedPreference.getboolValue();
       if (sharedPrefz != true) {
-        // ignore: use_build_context_synchronously
-        //knavigatorPush(context, LoginPage());
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>LoginPage()));
+        Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
+            context,
+            MaterialPageRoute(builder: (ctx) => LoginPage()));
       } else {
-        // ignore: use_build_context_synchronously
-        //knavigatorPush(context,const  BottomNavigationScreen());
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>const BottomNavigationScreen()));
-
+        Navigator.pushReplacement(
+            // ignore: use_build_context_synchronously
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => const BottomNavigationScreen()));
       }
     });
     return Scaffold(
@@ -32,7 +34,7 @@ class SplashScreen extends StatelessWidget {
             color: ksnackbarGreen, borderRadius: BorderRadius.circular(19)),
         child: const Icon(
           Icons.connect_without_contact,
-          size: 70, 
+          size: 70,
         ),
       )),
     );
@@ -40,8 +42,5 @@ class SplashScreen extends StatelessWidget {
 }
 
 Future<void> knavigatorPush(BuildContext context, Widget screen) {
-  return 
-  //Navigator.pushReplacement(context, MaterialPageRoute(builder: (ctx)=>screen));  
-   Navigator.push(context, MaterialPageRoute(builder: (ctx) => screen));
+  return Navigator.push(context, MaterialPageRoute(builder: (ctx) => screen));
 }
- 
