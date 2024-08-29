@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "webverbin",
+    "q": "webverbin"
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

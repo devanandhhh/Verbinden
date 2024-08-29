@@ -71,7 +71,7 @@ class AuthService {
       //'Content-Type': 'application/json',
     };
     final body = {'email': email, 'password': password};
-
+log('$email $password');
     try {
       final response = await http.post(uri, headers: header, body: body);
       if (response.statusCode == 200) {
