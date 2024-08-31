@@ -14,9 +14,19 @@ import 'package:verbinden/presentation/pages/splash/splash_screen.dart';
 import '../../bloc/chat_summary/chat_summary_bloc.dart';
 import 'package:intl/intl.dart';
 
-class MessageScreen extends StatelessWidget {
+class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
 
+  @override
+  State<MessageScreen> createState() => _MessageScreenState();
+}
+
+class _MessageScreenState extends State<MessageScreen> {
+  @override
+  void initState() {
+    context.read<ChatSummaryBloc>().add(ChatSummaryFetchEvent());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     context.read<ChatSummaryBloc>().add(ChatSummaryFetchEvent());
@@ -102,8 +112,6 @@ class MessageScreen extends StatelessWidget {
       ),
     );
   }
-  //   ),
-  // );
 }
 
 String? formatDate(String? timedata) {

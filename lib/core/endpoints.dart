@@ -9,7 +9,7 @@ class EndPoints{
   static String accessGenerator ='/accessgenerator';
   static String profile ='/profile';
   static String editprofile='/edit';
-  static String post='/post';
+  static String post='/post'; 
   static String setProfileImage ='/setprofileimage';
   static String exploreSearchUser ='/explore/search/user/';
   static String explore ='/explore';

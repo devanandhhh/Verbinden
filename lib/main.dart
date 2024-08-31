@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Verbinden',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             textSelectionTheme: TextSelectionThemeData(

@@ -10,7 +10,7 @@ import 'package:verbinden/core/colors_constant.dart';
 import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/data/models/profile/profile_model.dart';
 import 'package:verbinden/presentation/pages/auth/widgets/authwidgets.dart';
-import 'package:verbinden/presentation/pages/following&followers/follow_Screen.dart';
+import 'package:verbinden/presentation/pages/following&followers/connection_screen.dart';
 import 'package:verbinden/presentation/pages/message/widgets/widgets.dart';
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
 import 'package:verbinden/presentation/pages/profile/widgets/methods.dart';
@@ -61,15 +61,13 @@ class ProfileSection1 extends StatelessWidget {
           context.read<ProfileBloc>().add(ProfileFetchDataEvent());
         } else if (state is AddProfilePictureFaliureState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            kSnakbar(
-                text: 'Image Size is to high ',
-                col: ksnackbarRed),
+            kSnakbar(text: 'Image Size is to high ', col: ksnackbarRed),
           );
         }
       },
       builder: (context, state) {
         if (state is AddProfilePictureLoadingState) {
-          return sizedboxWithCircleprogressIndicator(); 
+          return sizedboxWithCircleprogressIndicator();
         }
 
         return buildProfileContent(context);
@@ -205,7 +203,9 @@ class ProfileSection1 extends StatelessWidget {
               )
             : ClipOval(
                 child: Image.network(
-                  model.afterExecution.userProfileImageURL,
+                  model.afterExecution.userProfileImageURL == ""
+                      ? unKnown
+                      : model.afterExecution.userProfileImageURL,
                   fit: BoxFit.cover,
                   height: 100.0,
                   width: 100.0,
@@ -321,7 +321,7 @@ class ProfileSection1 extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(shortenString(model.afterExecution.name, 7),
+                    Text(shortenString(model.afterExecution.name, 10),
                         style: gPoppines33),
                     Text(
                       shortenString(model.afterExecution.userName, 9),

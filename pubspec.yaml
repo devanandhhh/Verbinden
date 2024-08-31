@@ -76,6 +76,7 @@ flutter:
   assets:
     - lib/core/icons/love.png
     - lib/core/icons/bubble-chat.png
+    - assets/icons/newIconVerbinden.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

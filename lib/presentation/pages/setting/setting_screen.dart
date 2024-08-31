@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:verbinden/core/constant.dart';
 import 'package:verbinden/core/style.dart';
 
-import 'package:verbinden/presentation/pages/following&followers/follow_Screen.dart';
+import 'package:verbinden/presentation/pages/following&followers/connection_screen.dart';
 
 import 'package:verbinden/presentation/pages/profile/profile_page.dart';
 import 'package:verbinden/presentation/pages/setting/screens/about_screen.dart';

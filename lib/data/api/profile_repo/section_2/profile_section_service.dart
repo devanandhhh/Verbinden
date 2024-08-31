@@ -35,15 +35,15 @@ class ProfilePostSectionService {
 
       try {
         final response = await http.get(url, headers: header);
-        print('===getuserpost ${response.statusCode}');
+        log('===getuserpost ${response.statusCode}');
         if (response.statusCode == 200) {
           log('user post status code 200');
           final data = json.decode(response.body);
-          print('$data ==== data here');
+          log('$data ==== data here');
           List<Post> posts = [];
           for (var item in data['after execution']['PostsData']) {
             posts.add(Post.fromJson(item));
-            print('$item is item-');
+            log('$item is item-');
           }
           return posts;
         } else if (response.statusCode == 400) {
@@ -76,7 +76,8 @@ class ProfilePostSectionService {
         'x-api-key': 'apikey@ciao',
         'x-access-token': accessToken
       };
-      final url = Uri.parse('${EndPoints.baseUrl}${EndPoints.post}$postId');
+      final url = Uri.parse('${EndPoints.baseUrl}${EndPoints.post}$postId'); 
+      log(url.toString());
       try {
         final response = await http.delete(url, headers: header);
         if (response.statusCode == 200) {
