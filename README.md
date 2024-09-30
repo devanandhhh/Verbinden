@@ -11,4 +11,4 @@ Verbinden is a social media app developed using Flutter. It allows users to inte
 This project demonstrates my skills in mobile application development, real-time communication, and handling social media interactions using modern technologies.
 
 
- ![Image Alt]([image_url](https://github.com/devanandhhh/Verbinden/blob/abe82f1bb68833816a5f907c0550049e6b63bfe3/Thumbnail.png))
+ ![Image Alt](https://github.com/devanandhhh/Verbinden/blob/abe82f1bb68833816a5f907c0550049e6b63bfe3/Thumbnail.png)
