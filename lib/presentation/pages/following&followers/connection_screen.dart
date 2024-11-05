@@ -4,7 +4,6 @@ import 'package:verbinden/core/colors_constant.dart';
 
 import 'package:verbinden/presentation/pages/profile/widgets/widgets.dart';
 
-
 import '../../bloc/get_connections/get_connections_bloc.dart';
 
 import 'followers_screen.dart';
@@ -27,59 +26,39 @@ class ConnectionsScreen extends StatelessWidget {
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child: SizedBox(
                 height: 44,
-                child: TabBar(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: kwhiteColor,
-                  labelColor: kwhiteColor,
-                  unselectedLabelColor: kblackColor,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: kblackColor),
-                  tabs: [
-                    BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
-                      builder: (context, state) {
-                        if (state is GetConnectionLoadingState) {
-                          return const Tab(
-                            text: 'Followers ( )',
-                          );
-                        } else if (state is FollowerListLoadedState) {
-                          return Tab(
-                            text: 'Followers (${state.followerList.length})',
-                          );
-                        } else if (state is FollowerListFaliureState) {
-                          return const Tab(
-                            text: 'Follower(0)',
-                          );
-                        } else {
-                          return const Tab(
-                            text: 'Followers',
-                          );
-                        }
-                      },
-                    ),
-                    BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
-                      builder: (context, state) {
-                        if (state is GetConnectionLoadingState) {
-                          return const Tab(
-                            text: 'Following ( )',
-                          );
-                        } else if (state is FollowingListLoadedState) {
-                          return Tab(
-                            text: 'Followings (${state.followingList.length})',
-                          );
-                        } else if (state is FollowingListFaliureState) {
-                          return const Tab(
-                            text: 'Following (0)',
-                          );
-                        } else {
-                          return const Tab(
-                            text: 'Followings',
-                          );
-                        }
-                      },
-                    )
-                  ],
+                //adding new way to solve parent data widget issue
+                child: BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
+                  builder: (context, state) {
+                     String followersText = 'Followers';
+                  String followingText = 'Followings';
+
+                  if (state is GetConnectionLoadingState) {
+                    followersText = 'Followers ( )';
+                    followingText = 'Following ( )';
+                  } else if (state is FollowerListLoadedState) {
+                    followersText = 'Followers (${state.followerList.length})';
+                  } else if (state is FollowingListLoadedState) {
+                    followingText = 'Followings (${state.followingList.length})';
+                  } else if (state is FollowerListFaliureState) {
+                    followersText = 'Followers (0)';
+                  } else if (state is FollowingListFaliureState) {
+                    followingText = 'Following (0)';
+                  }
+                    return TabBar(
+                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      indicatorSize: TabBarIndicatorSize.tab,
+                      dividerColor: kwhiteColor,
+                      labelColor: kwhiteColor,
+                      unselectedLabelColor: kblackColor,
+                      indicator: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: kblackColor),
+                      tabs: [
+                        Tab(text: followersText),
+                        Tab(text: followingText),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -90,5 +69,3 @@ class ConnectionsScreen extends StatelessWidget {
         ));
   }
 }
-
-

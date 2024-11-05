@@ -100,13 +100,13 @@ class RelationService {
           //log('=============${followersList[0].name}');
           return followersList;
         } else if (response.statusCode == 400) {
-          return [];
+          //return [];
           //for test
-          // String newAccessToken = await tokens.getAccessTokenRegenerator();
-          // log('new accesstoken assigned');
-          // secureStorage.writeSecureStorage('AccessToken', newAccessToken);
-          // accessToken = newAccessToken;
-          // return getFollowersList();
+          String newAccessToken = await tokens.getAccessTokenRegenerator();
+          log('new accesstoken assigned');
+          secureStorage.writeSecureStorage('AccessToken', newAccessToken);
+          accessToken = newAccessToken;
+          return getFollowersList();
         }
         throw Exception('error in get followerlist ');
       } catch (e) {
@@ -143,12 +143,12 @@ class RelationService {
           //log('=============${followersList[0].name}');
           return followeingList;
         } else if (response.statusCode == 400) {
-          return [];
-          // String newAccessToken = await tokens.getAccessTokenRegenerator();
-          // log('new accesstoken assigned');
-          // secureStorage.writeSecureStorage('AccessToken', newAccessToken);
-          // accessToken = newAccessToken;
-          // return getFollowingList();
+          //return [];
+          String newAccessToken = await tokens.getAccessTokenRegenerator();
+          log('new accesstoken assigned');
+          secureStorage.writeSecureStorage('AccessToken', newAccessToken);
+          accessToken = newAccessToken;
+          return getFollowingList();
         }
         throw Exception('error in get followeingList ');
       } catch (e) {

@@ -27,8 +27,10 @@ class PostCommentBloc extends Bloc<PostCommentEvent, PostCommentState> {
         comment: event.comment.toString(),
       );
       if (response == 200) {
+        log('response from commed added $response');
         emit(PostCommentClickedState());
       } else {
+        log('response from commed added $response');
         emit(CommentsFetchFaliureState(error: 'not 200'));
       }
     } catch (e) {

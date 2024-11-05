@@ -197,15 +197,6 @@ class MyPostViewer extends StatelessWidget {
                                               ],
                                             );
                                           }
-
-                                          // return KPostDialog(
-                                          //     post: post,
-                                          //     onDelete: () {
-                                          //       context
-                                          //           .read<UserPostFechBloc>()
-                                          //           .add(DeletePostEvent(
-                                          //               postId: post.postId));
-
                                           );
                                     },
                                   )

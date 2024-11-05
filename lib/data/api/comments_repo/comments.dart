@@ -39,7 +39,10 @@ class CommentService {
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
 
           accessToken = newAccessToken;
-          return addComment(postId: postId, comment: comment);
+          log('add commet 400 again trying');
+          return response.statusCode;
+          //return addComment(postId: postId, comment: comment);
+          
         }
       } catch (e) {
         log('$e errorcatch from addcomment');

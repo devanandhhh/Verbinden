@@ -59,7 +59,7 @@ Center ksizedbox225Text({required String title}) {
     child: SizedBox(
       height: 225,
       child: Center(
-        child: Text(title),
+        child: Text(title,style:GoogleFonts.mukta(fontSize:15,fontWeight: FontWeight.bold ),), 
       ),
     ),
   );
@@ -69,7 +69,7 @@ GridView userPostGridView(ProfilePostsLoadedState state) {
   return GridView.builder(
     shrinkWrap: true,
     physics: const NeverScrollableScrollPhysics(),
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount( 
       crossAxisCount: 3,
       crossAxisSpacing: 4.0,
       mainAxisSpacing: 4.0,

@@ -76,7 +76,7 @@ class ProfilePostSectionService {
         'x-api-key': 'apikey@ciao',
         'x-access-token': accessToken
       };
-      final url = Uri.parse('${EndPoints.baseUrl}${EndPoints.post}$postId'); 
+      final url = Uri.parse('${EndPoints.baseUrl}${EndPoints.post}/$postId'); 
       log(url.toString());
       try {
         final response = await http.delete(url, headers: header);
@@ -90,10 +90,12 @@ class ProfilePostSectionService {
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
 
           accessToken = newAccessToken;
-          return deleteUserPost(postId);
+          log('delete user post response code ${response.statusCode}');
+          //return deleteUserPost(postId);
         }
       } catch (e) {
-        log(e.toString());
+        
+        log('catch Error $e');
       }
     }
   }

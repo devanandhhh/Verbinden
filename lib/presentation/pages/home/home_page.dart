@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:verbinden/core/constant.dart';
@@ -20,7 +21,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     context.read<HomeBloc>().add(HomeFetchPostEvent());
     context.read<ProfileBloc>().add(ProfileFetchDataEvent());
-
+if(kDebugMode){
+  print('debug mode');
+}else if(kProfileMode){
+  print('profile mode');
+}else if(kReleaseMode){
+  print('release mode');
+}
     return Scaffold(
       appBar: kAppbarDecorate('Verbinden', true),
       body: FutureBuilder(
@@ -63,6 +70,8 @@ class HomePage extends StatelessWidget {
               nameofuser = state.profileData.afterExecution.userName;
               imageOfUser =
                   state.profileData.afterExecution.userProfileImageURL;
+            }else if(state is ProfileFaliureState){
+              return SectionOne(userName: 'Unknown'); 
             }
             return SectionOne(
               userName: nameofuser,

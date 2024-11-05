@@ -33,19 +33,19 @@ class ProfilePage extends StatelessWidget {
                 future: Future.delayed(const Duration(seconds: 1)),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return buildShimmerProfile(context);
+                    return buildShimmerProfile(context,);
                   }
                   return BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) {
                       if (state is ProfileLoadingState) {
-                        return buildShimmerProfile(context);
+                        return buildShimmerProfile(context,);
                       } else if (state is ProfileLoadedState) {
                         nameofuser = state.profileData.afterExecution.userName;
                         // imageOfUser=state.profileData.afterExecution.userProfileImageURL;
                         return ProfileSection1(model: state.profileData);
                       } else {
                         return ksizedbox225Text(
-                            title: 'There is some issue from serverside');
+                            title: "Your session has expired. Please log in again to continue.");
                       }
                     },
                   );

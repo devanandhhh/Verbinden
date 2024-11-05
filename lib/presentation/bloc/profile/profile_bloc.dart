@@ -27,6 +27,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       if (model != null) {
         emit(ProfileLoadedState(model));
         
+      }else{
+        emit(ProfileFaliureState('token expired'));
       }
     } catch (e) {
       log('$e is error');

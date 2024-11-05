@@ -53,26 +53,29 @@ class CommentBox extends StatelessWidget {
           height: 65,
           width: 380,
           child: TextFormField(
-              controller: commentController,
-              maxLines: 1,
-              maxLength: 25,
-              decoration: InputDecoration(
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.send),
-                    onPressed: () {
-                      context.read<PostCommentBloc>().add(
-                          AddCommentButtonClickEvent(
-                              postId: postId, comment: commentController.text));
-                      commentController.clear();
-                      context
-                          .read<PostCommentBloc>()
-                          .add(FetchAllCommentsEvent(postId: postId));
-                    },
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  hintText: 'Add Comment')),
+            controller: commentController,
+            maxLines: 1,
+            maxLength: 25,
+            decoration: InputDecoration(
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.send),
+                  onPressed: () {
+                    context.read<PostCommentBloc>().add(
+                        AddCommentButtonClickEvent(
+                            postId: postId, comment: commentController.text));
+
+                    commentController.clear();
+
+                    context
+                        .read<PostCommentBloc>()
+                        .add(FetchAllCommentsEvent(postId: postId));
+                  },
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                hintText: 'Add Comment'),
+          ),
         ),
       ],
     );
@@ -85,10 +88,12 @@ class CommentBox extends StatelessWidget {
           if (state is PostCommentLoadingState) {
             return sizedboxWithCircleprogressIndicator();
           } else if (state is CommentsFetchedState) {
+            final reversedComment = state.modelComment.reversed.toList();
             return ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  final data = state.modelComment[index];
+                  final data = reversedComment[index];
+                  // final data = state.modelComment[index];
                   //checking is the user
                   bool isUserTrue = nameofuser == data!.userName ? true : false;
                   return buildCommentTile(data, isUserTrue);
@@ -206,6 +211,7 @@ class CommentBox extends StatelessWidget {
                     commentText: commentController.text));
                 Navigator.pop(context);
                 log('here');
+
                 context
                     .read<PostCommentBloc>()
                     .add(FetchAllCommentsEvent(postId: data.postId));

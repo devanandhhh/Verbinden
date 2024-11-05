@@ -22,7 +22,7 @@ class LikeUnlikeBloc extends Bloc<LikeUnlikeEvent, LikeUnlikeState> {
       log('liked successfully');
       emit(LikedState());
     }else{
-      log('something went wrong');
+      log('something went wrong $responseCode');
       emit(FaliureState(error: 'error'));
     }
   }

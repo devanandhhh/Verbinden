@@ -20,39 +20,39 @@ class FollowingsPage extends StatefulWidget {
 
 class _FollowingsPageState extends State<FollowingsPage> {
   @override
-  void initState() {
+  // void initState() {
+  //   context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
+  //   super.initState();
+  // }
+  void didChangeDependencies() {
     context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
-    super.initState();
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
-    context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
+    // context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
     return Scaffold(
       body: FutureBuilder(
         future: Future.delayed(const Duration(seconds: 2)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Expanded(
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return shimmerSecOne(context);
-                  },
-                  separatorBuilder: (context, index) => kdivider(),
-                  itemCount: 10),
-            );
+            return ListView.separated(
+                itemBuilder: (context, index) {
+                  return shimmerSecOne(context);
+                },
+                separatorBuilder: (context, index) => kdivider(),
+                itemCount: 10);
           } else {
             return BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
               builder: (context, state) {
                 if (state is GetConnectionLoadingState) {
-                  return Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          return shimmerSecOne(context);
-                        },
-                        separatorBuilder: (context, index) => kdivider(),
-                        itemCount: 10),
-                  );
+                  return ListView.separated(
+                      itemBuilder: (context, index) {
+                        return shimmerSecOne(context);
+                      },
+                      separatorBuilder: (context, index) => kdivider(),
+                      itemCount: 10);
                 } else if (state is FollowingListFaliureState) {
                   return Center(
                     child: Text(state.error),

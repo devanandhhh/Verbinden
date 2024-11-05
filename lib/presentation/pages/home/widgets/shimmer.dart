@@ -18,7 +18,7 @@ Row shimmerSecOne(context) {
           Skelton(
               height: MediaQuery.of(context).size.height * .02,
               width: MediaQuery.of(context).size.width * .38),
-              h20 
+          h20
         ],
       )
     ],
@@ -59,16 +59,21 @@ Column shimmerUserPost(BuildContext context) {
           ],
         ),
       ),
-      
     ],
   );
 }
+
 class Skelton extends StatelessWidget {
   const Skelton({super.key, required this.height, required this.width});
-final double height,width;
+  final double height, width;
   @override
   Widget build(BuildContext context) {
-    return Container(height: height,width: width,padding:const EdgeInsets.all(8),decoration: BoxDecoration(color: Colors.black.withOpacity(0.04),borderRadius: BorderRadius.circular(16)));
-   
+    return Container(
+        height: height,
+        width: width,
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.04),
+            borderRadius: BorderRadius.circular(16)));
   }
 }

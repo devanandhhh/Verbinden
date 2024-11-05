@@ -36,7 +36,7 @@ class OthersProfilePage extends StatelessWidget {
             BlocBuilder<OthersProfileBloc, OthersProfileState>(
               builder: (context, state) {
                 if (state is OthersProfileLoadingState) {
-                  return buildShimmerProfile(context);
+                  return buildShimmerProfile(context,);
                 } else if (state is OthersProfileLoadedState) {
                   return SizedBox(
                     height: 225,

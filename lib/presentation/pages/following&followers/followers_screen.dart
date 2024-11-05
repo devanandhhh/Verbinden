@@ -21,41 +21,41 @@ class FollowersPage extends StatefulWidget {
 
 class _FollowersPageState extends State<FollowersPage> {
   @override
-  void initState() {
-   context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
-    super.initState();
+  // void initState() {
+  //  context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
+  //   super.initState();
+  // }
+  void didChangeDependencies() {
+    context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
+    super.didChangeDependencies();
   }
   @override
   Widget build(BuildContext context) {
-    context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
+   // context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
     return Scaffold(
       body: FutureBuilder(
-        future: Future.delayed(const Duration(seconds: 2)),
+        future: Future.delayed(const Duration(seconds: 1)),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Expanded(
-              child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return shimmerSecOne(context);
-                  },
-                  separatorBuilder: (context, index) => kdivider(),
-                  itemCount: 10),
-            );
+            return ListView.separated(
+                itemBuilder: (context, index) {
+                  return shimmerSecOne(context);
+                },
+                separatorBuilder: (context, index) => kdivider(),
+                itemCount: 10);
           } else {
             return BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
               builder: (context, state) {
                 if (state is GetConnectionLoadingState) {
-                  return Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, index) {
-                          return shimmerSecOne(context);
-                        },
-                        separatorBuilder: (context, index) => kdivider(),
-                        itemCount: 10),
-                  );
+                  return ListView.separated(
+                      itemBuilder: (context, index) {
+                        return shimmerSecOne(context);
+                      },
+                      separatorBuilder: (context, index) => kdivider(),
+                      itemCount: 10);
                 } else if (state is FollowerListFaliureState) {
-                  return Center(
-                    child: Text(state.error),
+                  return const Center(
+                    child: Text('No followers found'),
                   );
                 } else if (state is FollowerListLoadedState) {
                   return ListView.separated(
