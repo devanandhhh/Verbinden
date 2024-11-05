@@ -1,16 +1,14 @@
-# verbinden
+## Verbinden - A Social Media Application
+Verbinden is a social media app developed using Flutter. It allows users to interact through various social media features, powered by API integration and WebSocket for real-time communication.
 
-A new Flutter project.
+# Key Features:
+* User Authentication: Secure login with key-based authentication.
+* Photo Posting: Users can upload and share their photos.
+* Like & Comment: Engage with others by liking and commenting on their posts.
+* Real-time Chat: Chat functionality using WebSocket for instant messaging between users.
+* API Integration: Data fetching and posting are handled via API integration for smooth user interaction.
+  
+This project demonstrates my skills in mobile application development, real-time communication, and handling social media interactions using modern technologies.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ ![Image Alt](https://github.com/devanandhhh/Verbinden/blob/abe82f1bb68833816a5f907c0550049e6b63bfe3/Thumbnail.png)
