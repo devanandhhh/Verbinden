@@ -99,7 +99,7 @@ class SettingScreen extends StatelessWidget {
       child: Align(
         alignment: Alignment.bottomCenter,
         child: Text(
-          'Version 1.0.2',
+          'Version 1.0.4',
           style: googleFabz18,
         ),
       ),

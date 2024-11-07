@@ -87,7 +87,7 @@ class RelationService {
       };
       try {
         final response = await http.get(url, headers: header);
-        log('get response ${response.body}');
+        log('get response ${response.body}-$url');
         if (response.statusCode == 200) {
           final data =jsonDecode(response.body);
           print('helo');
@@ -106,7 +106,8 @@ class RelationService {
           log('new accesstoken assigned');
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
           accessToken = newAccessToken;
-          return getFollowersList();
+          return [];
+          //getFollowersList();
         }
         throw Exception('error in get followerlist ');
       } catch (e) {

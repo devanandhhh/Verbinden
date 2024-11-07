@@ -20,18 +20,18 @@ class FollowersPage extends StatefulWidget {
 
 
 class _FollowersPageState extends State<FollowersPage> {
-  @override
+  // @override
   // void initState() {
   //  context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
   //   super.initState();
   // }
-  void didChangeDependencies() {
-    context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
-    super.didChangeDependencies();
-  }
+  // void didChangeDependencies() {
+  //   context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
+  //   super.didChangeDependencies();
+  // }
   @override
   Widget build(BuildContext context) {
-   // context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
+    context.read<GetConnectionsBloc>().add(FollowersListFetchEvent());
     return Scaffold(
       body: FutureBuilder(
         future: Future.delayed(const Duration(seconds: 1)),

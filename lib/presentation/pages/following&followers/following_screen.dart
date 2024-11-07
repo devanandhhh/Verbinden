@@ -20,14 +20,14 @@ class FollowingsPage extends StatefulWidget {
 
 class _FollowingsPageState extends State<FollowingsPage> {
   @override
-  // void initState() {
-  //   context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
-  //   super.initState();
-  // }
-  void didChangeDependencies() {
+  void initState() {
     context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
-    super.didChangeDependencies();
+    super.initState();
   }
+  // void didChangeDependencies() {
+  //   context.read<GetConnectionsBloc>().add(FollowingListFetchEvent());
+  //   super.didChangeDependencies();
+  // }
 
   @override
   Widget build(BuildContext context) {

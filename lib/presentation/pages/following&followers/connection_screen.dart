@@ -27,10 +27,11 @@ class ConnectionsScreen extends StatelessWidget {
               child: SizedBox(
                 height: 44,
                 //adding new way to solve parent data widget issue
-                child: BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
+                child:
+                 BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
                   builder: (context, state) {
                      String followersText = 'Followers';
-                  String followingText = 'Followings';
+                  String followingText = 'Followings.';
 
                   if (state is GetConnectionLoadingState) {
                     followersText = 'Followers ( )';
@@ -44,7 +45,8 @@ class ConnectionsScreen extends StatelessWidget {
                   } else if (state is FollowingListFaliureState) {
                     followingText = 'Following (0)';
                   }
-                    return TabBar(
+                    return
+                     TabBar(
                       padding: const EdgeInsets.only(left: 10, right: 10),
                       indicatorSize: TabBarIndicatorSize.tab,
                       dividerColor: kwhiteColor,

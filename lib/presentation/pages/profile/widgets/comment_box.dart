@@ -61,14 +61,13 @@ class CommentBox extends StatelessWidget {
                   icon: const Icon(Icons.send),
                   onPressed: () {
                     context.read<PostCommentBloc>().add(
-                        AddCommentButtonClickEvent(
-                            postId: postId, comment: commentController.text));
-
+                        AddCommentButtonClickEvent( 
+                            postId: postId, comment: commentController.text)); print('here iam');                  
                     commentController.clear();
 
-                    context
-                        .read<PostCommentBloc>()
-                        .add(FetchAllCommentsEvent(postId: postId));
+                    // context
+                    //     .read<PostCommentBloc>()
+                    //     .add(FetchAllCommentsEvent(postId: postId));
                   },
                 ),
                 border: OutlineInputBorder(
@@ -88,12 +87,12 @@ class CommentBox extends StatelessWidget {
           if (state is PostCommentLoadingState) {
             return sizedboxWithCircleprogressIndicator();
           } else if (state is CommentsFetchedState) {
-            final reversedComment = state.modelComment.reversed.toList();
+          //  final reversedComment = state.modelComment.reversed.toList();
             return ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (context, index) {
-                  final data = reversedComment[index];
-                  // final data = state.modelComment[index];
+                 // final data = reversedComment[index];
+                   final data = state.modelComment[index];
                   //checking is the user
                   bool isUserTrue = nameofuser == data!.userName ? true : false;
                   return buildCommentTile(data, isUserTrue);

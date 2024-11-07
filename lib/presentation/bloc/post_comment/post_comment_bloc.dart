@@ -31,7 +31,8 @@ class PostCommentBloc extends Bloc<PostCommentEvent, PostCommentState> {
         emit(PostCommentClickedState());
       } else {
         log('response from commed added $response');
-        emit(CommentsFetchFaliureState(error: 'not 200'));
+         emit(PostCommentClickedState());
+       // emit(CommentsFetchFaliureState(error: 'not 200'));
       }
     } catch (e) {
       log('$e error on addcomment ');
@@ -46,7 +47,7 @@ class PostCommentBloc extends Bloc<PostCommentEvent, PostCommentState> {
       final commentList = await service.getComments(postId: event.postId);
       final commentCount = await service.getCommentCount(postId: event.postId);
       // if(commentCount==null&&commentList!.isNotEmpty){
-      log('commentlist have value');
+      log('commentlist $commentCount have value $commentList ');
       emit(CommentsFetchedState(
           modelComment: commentList!, commentCount: commentCount));
       // }else{

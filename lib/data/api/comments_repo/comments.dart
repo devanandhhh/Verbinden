@@ -26,7 +26,7 @@ class CommentService {
       };
       final body = jsonEncode({'PostID': postId, 'CommentText': comment});
       try {
-        log('flag one');
+        log('flag one -> $url');
         final response = await http.post(url, headers: header, body: body);
         log('response from add comment is ${response.statusCode}');
         if (response.statusCode == 200) {
@@ -39,7 +39,7 @@ class CommentService {
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
 
           accessToken = newAccessToken;
-          log('add commet 400 again trying');
+          log('add commet 400 again trying->${response.body}');
           return response.statusCode;
           //return addComment(postId: postId, comment: comment);
           
@@ -69,11 +69,11 @@ class CommentService {
       };
       // final body ={'CommentId':4,'CommentText':" comment test text edited"};
       try {
-        print('in try');
+        print('in try getcommets api');
         final response = await http.get(url, headers: header);
         log('response from getComment ${response.statusCode}');
         if (response.statusCode == 200) {
-          print(response.body);
+          print("----------------------response 200 ${response.body}");
 
           log('getComment fetched');
           final data = jsonDecode(response.body);
@@ -91,7 +91,8 @@ class CommentService {
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
 
           accessToken = newAccessToken;
-          return getComments(postId: postId);
+          return [];
+          //getComments(postId: postId);
         }
         return null;
         // throw Exception('error on get comment');
@@ -135,7 +136,8 @@ class CommentService {
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
 
           accessToken = newAccessToken;
-          return getCommentCount(postId: postId);
+          return response.statusCode;
+          //getCommentCount(postId: postId);
         }
         return 0;
         //throw Exception('error in get comment count');
@@ -179,7 +181,8 @@ class CommentService {
           log('newAccessToken is $newAccessToken');
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
           accessToken = newAccessToken;
-          return editComment(commentId: commentId, commentText: commentText);
+          return response.statusCode;
+          //editComment(commentId: commentId, commentText: commentText);
         }else{
           return response.statusCode;
         }
@@ -216,7 +219,8 @@ class CommentService {
           secureStorage.writeSecureStorage('AccessToken', newAccessToken);
 
           accessToken = newAccessToken;
-          return deleteComment(commentId: commentId);
+          return response.statusCode;
+          //deleteComment(commentId: commentId);
         }
         return 00;
       } catch (e) {

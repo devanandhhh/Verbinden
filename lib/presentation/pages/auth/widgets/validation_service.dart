@@ -17,7 +17,9 @@ class ValidationService {
     }else if(username.length <= 3){
       return 'Name should be atleast 4 character';
     }else if(!nameRegExp.hasMatch(username)){
-      return 'Please Enter in letters';
+      return 'Please Enter in letters without space';
+    }else if(username==username.toLowerCase()){
+      return 'Enter your name in Lower case';
     }
     return null;
     
